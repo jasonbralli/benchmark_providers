@@ -269,8 +269,8 @@ def run_bot(interval_s: int = 3600, alert: bool = True):
             )
         except Exception as exc:
             print(f"probe erro: {exc}")
-        # Regenera HTML
-        out = DATA / "dashboard.html"
+        # Regenera HTML (raiz do repo p/ GitHub Pages)
+        out = ROOT / "index.html"
         out.write_text(render_html(_load()), encoding="utf-8")
         print(f"[{_now_iso()}] bot: html atualizado -> {out}")
         time.sleep(interval_s)
@@ -281,7 +281,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=8787)
     ap.add_argument("--host", default="127.0.0.1")
-    ap.add_argument("--once", action="store_true", help="gera data/dashboard.html e sai")
+    ap.add_argument("--once", action="store_true", help="gera HTML estático e sai (default: index.html na raiz)")
+    ap.add_argument("--out", default=None, help="caminho de saída do --once (default: ROOT/index.html)")
     ap.add_argument("--run-probe", action="store_true", help="ativa bot com loop de probe + atualiza HTML")
     ap.add_argument("--interval", type=int, default=3600, help="segundos entre probes no bot (default 3600)")
     a = ap.parse_args(argv)
@@ -290,7 +291,7 @@ def main(argv=None):
         run_bot(interval_s=a.interval, alert=True)
         return 0
     if a.once:
-        out = DATA / "dashboard.html"
+        out = Path(a.out) if a.out else (ROOT / "index.html")
         out.write_text(render_html(_load()), encoding="utf-8")
         print(str(out))
         return 0

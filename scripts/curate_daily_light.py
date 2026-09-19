@@ -72,7 +72,7 @@ def main() -> int:
     dirty = [l for l in status.stdout.splitlines() if l.strip()]
     if dirty:
         ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
-        _run(["git", "add", "data/provider_health.json", "data/provider_health.jsonl"])
+        _run(["git", "add", "data/provider_health.json", "data/provider_health.jsonl", "index.html"])
         rc, _, err = _run(["git", "commit", "-m", f"health probe {ts}"])
         if rc == 0:
             rc, _, err = _run(["git", "push", "origin", "main"])
