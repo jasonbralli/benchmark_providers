@@ -29,11 +29,11 @@
     },
     "novita": {
       "url": "https://api.novita.ai/v3/openai/chat/completions",
-      "model": "zai-org/glm-5.3-flash",
+      "model": "inclusionai/ling-3.0-flash-fin",
       "key_env": "NOVITA_API_KEY",
       "api_style": "novita",
       "disabled": false,
-      "note": "Sem balance p/ completions (403 NOT_ENOUGH_BALANCE). api_style=novita seta User-Agent custom (Cloudflare 1010 bloqueia urllib default). Probe roda, mas com $0 retorna 403 — card vai mostrar 'bad' ate ter credito."
+      "note": "Modelo: inclusionai/ling-3.0-flash-fin (free tier, $0/$0, ctx 262k). MAS Novita exige balance > 0 mesmo p/ models free (403 NOT_ENOUGH_BALANCE). api_style=novita seta UA custom p/ passar Cloudflare. Card vai mostrar 'bad' ate ter credito — registro historico mantido p/ ordenacao."
     }
   },
   "probe": {

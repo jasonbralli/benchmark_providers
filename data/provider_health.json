@@ -1,45 +1,45 @@
 {
-  "generated_at": "2026-09-19T22:38:30Z",
+  "generated_at": "2026-09-19T22:55:21Z",
   "window_hours": 24,
   "providers": {
     "nvidia": {
-      "samples": 5,
-      "ok": 5,
+      "samples": 6,
+      "ok": 6,
       "uptime_pct": 100.0,
       "shed_hits": 0,
       "p50_ms": 103477.7,
       "p95_ms": 116387.5,
       "p99_ms": 116387.5,
-      "ttft_p50_ms": 114134.9,
+      "ttft_p50_ms": 114862.3,
       "ttft_p95_ms": 116385.4,
-      "ttft_samples": 3,
+      "ttft_samples": 4,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-19T22:36:09Z"
+      "last_ts": "2026-09-19T22:53:03Z"
     },
     "openrouter": {
-      "samples": 5,
-      "ok": 5,
+      "samples": 6,
+      "ok": 6,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 918.6,
+      "p50_ms": 793.8,
       "p95_ms": 1036.6,
       "p99_ms": 1036.6,
       "ttft_p50_ms": 910.0,
       "ttft_p95_ms": 986.2,
-      "ttft_samples": 3,
+      "ttft_samples": 4,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-19T22:38:06Z"
+      "last_ts": "2026-09-19T22:54:58Z"
     },
     "kilocode": {
-      "samples": 5,
+      "samples": 6,
       "ok": 0,
       "uptime_pct": 0.0,
-      "shed_hits": 5,
-      "p50_ms": 486.5,
+      "shed_hits": 6,
+      "p50_ms": 426.1,
       "p95_ms": 1503.9,
       "p99_ms": 1503.9,
       "ttft_p50_ms": null,
@@ -48,14 +48,14 @@
       "last_status": 429,
       "last_error": "HTTP 429",
       "last_ok": false,
-      "last_ts": "2026-09-19T22:38:12Z"
+      "last_ts": "2026-09-19T22:55:04Z"
     },
     "gemini": {
-      "samples": 5,
-      "ok": 5,
+      "samples": 6,
+      "ok": 6,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 1787.5,
+      "p50_ms": 1259.2,
       "p95_ms": 4036.6,
       "p99_ms": 4036.6,
       "ttft_p50_ms": null,
@@ -64,39 +64,39 @@
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-19T22:38:17Z"
+      "last_ts": "2026-09-19T22:55:09Z"
     },
     "huggingface": {
-      "samples": 5,
-      "ok": 5,
+      "samples": 6,
+      "ok": 6,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 610.6,
+      "p50_ms": 603.4,
       "p95_ms": 2196.6,
       "p99_ms": 2196.6,
       "ttft_p50_ms": 609.5,
       "ttft_p95_ms": 2195.3,
-      "ttft_samples": 3,
+      "ttft_samples": 4,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-19T22:38:19Z"
+      "last_ts": "2026-09-19T22:55:10Z"
     },
     "novita": {
-      "samples": 1,
+      "samples": 2,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
       "p50_ms": 277.5,
-      "p95_ms": 277.5,
-      "p99_ms": 277.5,
+      "p95_ms": 359.3,
+      "p99_ms": 359.3,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
-      "last_status": 403,
-      "last_error": "HTTP 403",
+      "last_status": 404,
+      "last_error": "HTTP 404",
       "last_ok": false,
-      "last_ts": "2026-09-19T22:38:25Z"
+      "last_ts": "2026-09-19T22:55:16Z"
     }
   }
 }
