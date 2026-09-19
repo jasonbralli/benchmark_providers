@@ -1,39 +1,188 @@
 <!doctype html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8">
-<meta http-equiv="refresh" content="300">
-<title>benchmark_providers — health</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>benchmark_providers — saúde dos providers</title>
 <style>
-:root { --fg:#e5e7eb; --muted:#9ca3af; --accent:#3b82f6; --border:#374151; --card:#111827; }
-* { box-sizing: border-box; }
-body { font: 14px/1.5 ui-sans-serif, system-ui, sans-serif; background: transparent; color: var(--fg); margin: 0; padding: 16px; }
-h1 { font-size: 18px; margin: 0 0 4px; }
-.sub { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
-table { border-collapse: collapse; width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
-th { background: #0b1220; color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
-tr:last-child td { border-bottom: none; }
-code { background: rgba(59,130,246,.15); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
-footer.site-footer { margin-top: 16px; color: var(--muted); font-size: 12px; }
-footer.site-footer a { color: var(--muted); }
-</style></head>
+:root{--bg:#0b1020;--card:#131a2e;--card-border:#1f2948;--fg:#e6eaf3;--muted:#8a93ab;--accent:#3b82f6;--ok:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font:14px/1.55 ui-sans-serif,system-ui,sans-serif;background:radial-gradient(1200px 600px at 20% -10%,rgba(59,130,246,.12),transparent 60%),var(--bg);color:var(--fg);min-height:100vh;padding:20px clamp(12px,4vw,40px);}
+.wrap{max-width:1280px;margin:0 auto;}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:18px;}
+h1{font-size:22px;margin:0;letter-spacing:-.01em;}
+.subtle{color:var(--muted);font-size:13px;}
+.refresh{margin-left:auto;font-size:12px;color:var(--muted);}
+.refresh b{color:var(--fg);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;}
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(0,0,0,.25);transition:transform .15s ease,border-color .2s ease;border-top:3px solid var(--card-border);}
+.card:hover{transform:translateY(-2px);}
+.card.ok{border-top-color:var(--ok);}
+.card.warn{border-top-color:var(--warn);}
+.card.bad{border-top-color:var(--bad);}
+.card header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.card h3{margin:0;font-size:16px;font-weight:600;}
+.pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;letter-spacing:.02em;text-transform:uppercase;}
+.pill.ok{background:rgba(16,185,129,.15);color:var(--ok);}
+.pill.warn{background:rgba(245,158,11,.15);color:var(--warn);}
+.pill.bad{background:rgba(239,68,68,.15);color:var(--bad);}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px 10px;margin-bottom:10px;}
+.kpi{display:flex;flex-direction:column;min-width:0;}
+.kpi .k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+.kpi .v{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;}
+.na{color:var(--muted);font-weight:400;}
+.spark{padding:6px 0 2px;}
+.spark svg{width:100%;height:46px;display:block;}
+.card footer{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted);border-top:1px dashed var(--card-border);padding-top:8px;margin-top:6px;}
+.card footer .err{color:var(--bad);font-family:ui-monospace,monospace;}
+footer.site-footer{margin:24px 0 6px;text-align:center;color:var(--muted);font-size:12px;}
+footer.site-footer a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted);}
+footer.site-footer a:hover{color:var(--fg);}
+@media(max-width:640px){.kpis{grid-template-columns:repeat(2,1fr);}h1{font-size:18px;}}
+</style>
+</head>
 <body>
-<h1>🩺 benchmark_providers — saúde dos providers</h1>
-<div class="sub">Gerado em 2026-09-19T15:09:55Z · janela 24h · auto-refresh 5min</div>
-<table>
-<thead><tr>
-<th>Provider</th><th>Uptime</th><th>Amostras</th>
-<th>P50 (ms)</th><th>P95 (ms)</th><th>P99 (ms)</th>
-<th>TTFT P50</th><th>TTFT P95</th>
-<th>Shed</th><th>Últ. status</th>
-</tr></thead>
-<tbody>
-<tr><td>🟢 <b>gemini</b></td><td>100.0%</td><td>5</td><td>1259.2</td><td>—</td><td>5400.7</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
-<tr><td>🟢 <b>huggingface</b></td><td>100.0%</td><td>5</td><td>1359.9</td><td>—</td><td>26380.2</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
-<tr><td>🔴 <b>kilocode</b></td><td>0.0%</td><td>5</td><td>807.5</td><td>—</td><td>1194.7</td><td>—</td><td>—</td><td>5</td><td><code>429</code> HTTP 429</td></tr>
-<tr><td>🟢 <b>nvidia</b></td><td>100.0%</td><td>5</td><td>95160.1</td><td>—</td><td>100488.5</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
-<tr><td>🟢 <b>openrouter</b></td><td>100.0%</td><td>5</td><td>1036.6</td><td>—</td><td>4128.5</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
-</tbody>
-</table>
-<footer class="site-footer"><a href="https://inovatudo.com" target="_blank" rel="noopener">inovatudo.com</a></footer>
+<div class="wrap">
+<header class="top">
+  <h1>🩺 benchmark_providers</h1>
+  <span class="subtle">Gerado em <b>2026-09-19T19:06:44Z</b> · janela de 24h</span>
+  <span class="refresh">auto-refresh 2 min · decorrido <b id="elapsed">0s</b></span>
+</header>
+<main class="grid">
+
+<article class="card ok">
+  <header>
+    <h3>🟢 gemini</h3>
+    <span class="pill ok">Saudável</span>
+  </header>
+  <div class="kpis">
+    <div class="kpi"><span class="k">Uptime 24h</span><span class="v">100.0%</span></div>
+    <div class="kpi"><span class="k">P50</span><span class="v">1259.2 ms</span></div>
+    <div class="kpi"><span class="k">P95</span><span class="v">1787.5 ms</span></div>
+    <div class="kpi"><span class="k">P99</span><span class="v">1787.5 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P50</span><span class="v"><span class="na">—</span></span></div>
+    <div class="kpi"><span class="k">TTFT P95</span><span class="v"><span class="na">—</span></span></div>
+    <div class="kpi"><span class="k">Amostras</span><span class="v">4</span></div>
+    <div class="kpi"><span class="k">Shed hits</span><span class="v">0</span></div>
+  </div>
+  <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,32.4 110.0,4.0 218.0,42.0"/></svg></div>
+  <footer>
+    <span class="muted">últ. 2026-09-19T19:06:42Z · HTTP 200</span>
+    
+  </footer>
+</article>
+
+<article class="card ok">
+  <header>
+    <h3>🟢 huggingface</h3>
+    <span class="pill ok">Saudável</span>
+  </header>
+  <div class="kpis">
+    <div class="kpi"><span class="k">Uptime 24h</span><span class="v">100.0%</span></div>
+    <div class="kpi"><span class="k">P50</span><span class="v">929.9 ms</span></div>
+    <div class="kpi"><span class="k">P95</span><span class="v">1359.9 ms</span></div>
+    <div class="kpi"><span class="k">P99</span><span class="v">1359.9 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P50</span><span class="v">609.5 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P95</span><span class="v">609.5 ms</span></div>
+    <div class="kpi"><span class="k">Amostras</span><span class="v">4</span></div>
+    <div class="kpi"><span class="k">Shed hits</span><span class="v">0</span></div>
+  </div>
+  <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,4.0 110.0,42.0 218.0,36.8"/></svg></div>
+  <footer>
+    <span class="muted">últ. 2026-09-19T19:06:43Z · HTTP 200</span>
+    
+  </footer>
+</article>
+
+<article class="card bad">
+  <header>
+    <h3>🔴 kilocode</h3>
+    <span class="pill bad">Shed / Indisponível</span>
+  </header>
+  <div class="kpis">
+    <div class="kpi"><span class="k">Uptime 24h</span><span class="v">0.0%</span></div>
+    <div class="kpi"><span class="k">P50</span><span class="v">729.5 ms</span></div>
+    <div class="kpi"><span class="k">P95</span><span class="v">1194.7 ms</span></div>
+    <div class="kpi"><span class="k">P99</span><span class="v">1194.7 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P50</span><span class="v"><span class="na">—</span></span></div>
+    <div class="kpi"><span class="k">TTFT P95</span><span class="v"><span class="na">—</span></span></div>
+    <div class="kpi"><span class="k">Amostras</span><span class="v">4</span></div>
+    <div class="kpi"><span class="k">Shed hits</span><span class="v">4</span></div>
+  </div>
+  <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,4.0 110.0,42.0 218.0,40.7"/><circle cx="2.0" cy="4.0" r="2.5" fill="#ef4444"/><circle cx="110.0" cy="42.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="40.7" r="2.5" fill="#ef4444"/></svg></div>
+  <footer>
+    <span class="muted">últ. 2026-09-19T19:06:37Z · HTTP 429</span>
+    <span class="err">HTTP 429</span>
+  </footer>
+</article>
+
+<article class="card ok">
+  <header>
+    <h3>🟢 nvidia</h3>
+    <span class="pill ok">Saudável</span>
+  </header>
+  <div class="kpis">
+    <div class="kpi"><span class="k">Uptime 24h</span><span class="v">100.0%</span></div>
+    <div class="kpi"><span class="k">P50</span><span class="v">100488.5 ms</span></div>
+    <div class="kpi"><span class="k">P95</span><span class="v">103477.7 ms</span></div>
+    <div class="kpi"><span class="k">P99</span><span class="v">103477.7 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P50</span><span class="v">103476.4 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P95</span><span class="v">103476.4 ms</span></div>
+    <div class="kpi"><span class="k">Amostras</span><span class="v">4</span></div>
+    <div class="kpi"><span class="k">Shed hits</span><span class="v">0</span></div>
+  </div>
+  <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,42.0 110.0,9.0 218.0,4.0"/></svg></div>
+  <footer>
+    <span class="muted">últ. 2026-09-19T19:04:46Z · HTTP 200</span>
+    
+  </footer>
+</article>
+
+<article class="card ok">
+  <header>
+    <h3>🟢 openrouter</h3>
+    <span class="pill ok">Saudável</span>
+  </header>
+  <div class="kpis">
+    <div class="kpi"><span class="k">Uptime 24h</span><span class="v">100.0%</span></div>
+    <div class="kpi"><span class="k">P50</span><span class="v">1001.5 ms</span></div>
+    <div class="kpi"><span class="k">P95</span><span class="v">1036.6 ms</span></div>
+    <div class="kpi"><span class="k">P99</span><span class="v">1036.6 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P50</span><span class="v">986.2 ms</span></div>
+    <div class="kpi"><span class="k">TTFT P95</span><span class="v">986.2 ms</span></div>
+    <div class="kpi"><span class="k">Amostras</span><span class="v">4</span></div>
+    <div class="kpi"><span class="k">Shed hits</span><span class="v">0</span></div>
+  </div>
+  <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,4.0 110.0,42.0 218.0,7.8"/></svg></div>
+  <footer>
+    <span class="muted">últ. 2026-09-19T19:06:29Z · HTTP 200</span>
+    
+  </footer>
+</article>
+</main>
+<footer class="site-footer">
+  <a href="https://inovatudo.com" target="_blank" rel="noopener">inovatudo.com</a>
+</footer>
+</div>
+<script>
+(function(){
+  var T0=Date.now();
+  var EL=document.getElementById('elapsed');
+  setInterval(function(){
+    var s=Math.floor((Date.now()-T0)/1000); if(EL)EL.textContent=s+'s';
+  },1000);
+  // Pulse / heartbeat: fetch /json cada 30s; se falhar 3x, reload
+  var FAILS=0;
+  function ping(){
+    fetch('/json',{cache:'no-store'})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(p){if(p&&p.generated_at){FAILS=0;}})
+      .catch(function(){FAILS+=1;if(FAILS>=3)location.reload();});
+    setTimeout(ping,30000);
+  }
+  setTimeout(ping,30000);
+  // Recarga completa a cada 2 min para garantir frescor (simpler que merge DOM)
+  setTimeout(function(){location.reload();},120000);
+})();
+</script>
 </body></html>
