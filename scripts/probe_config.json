@@ -1,0 +1,41 @@
+{
+  "providers": {
+    "nvidia": {
+      "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+      "model": "moonshotai/kimi-k3",
+      "key_env": "NVIDIA_API_KEY",
+      "note": "Free-tier NVIDIA expoe so reasoning models (kimi-k3, glm-5.3-flash). mistral/llama/gemma retornam 410 Gone (deprecated) ou 404 Not Found (not provisioned). kimi-k3 responde 200 em ~60-90s."
+    },
+    "openrouter": {
+      "url": "https://openrouter.ai/api/v1/chat/completions",
+      "model": "meta-llama/llama-3.1-8b-instruct",
+      "key_env": "OPENROUTER_API_KEY"
+    },
+    "kilocode": {
+      "url": "https://api.kilocode.ai/api/openrouter/chat/completions",
+      "model": "thinkingmachines/inkling-small:free",
+      "key_env": "KILOCODE_API_KEY"
+    },
+    "gemini": {
+      "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
+      "model": "gemini-3.6-flash",
+      "key_env": "GOOGLE_API_KEY",
+      "api_style": "gemini"
+    },
+    "huggingface": {
+      "url": "https://router.huggingface.co/v1/chat/completions",
+      "model": "meta-llama/Llama-3.1-8B-Instruct",
+      "key_env": "HF_TOKEN"
+    }
+  },
+  "probe": {
+    "max_tokens": 1,
+    "timeout_s": 120,
+    "retries": 3,
+    "backoff_s": 1.5
+  },
+  "alert": {
+    "consecutive_threshold": 3,
+    "latency_threshold_ms": 5000
+  }
+}

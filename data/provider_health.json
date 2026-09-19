@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-09-19T15:09:55Z",
+  "window_hours": 24,
+  "providers": {
+    "nvidia": {
+      "samples": 5,
+      "ok": 5,
+      "uptime_pct": 100.0,
+      "shed_hits": 0,
+      "p50_ms": 95160.1,
+      "p99_ms": 100488.5,
+      "last_status": 200,
+      "last_error": null,
+      "last_ok": true,
+      "last_ts": "2026-09-19T15:08:01Z"
+    },
+    "openrouter": {
+      "samples": 5,
+      "ok": 5,
+      "uptime_pct": 100.0,
+      "shed_hits": 0,
+      "p50_ms": 1036.6,
+      "p99_ms": 4128.5,
+      "last_status": 200,
+      "last_error": null,
+      "last_ok": true,
+      "last_ts": "2026-09-19T15:09:42Z"
+    },
+    "kilocode": {
+      "samples": 5,
+      "ok": 0,
+      "uptime_pct": 0.0,
+      "shed_hits": 5,
+      "p50_ms": 807.5,
+      "p99_ms": 1194.7,
+      "last_status": 429,
+      "last_error": "HTTP 429",
+      "last_ok": false,
+      "last_ts": "2026-09-19T15:09:48Z"
+    },
+    "gemini": {
+      "samples": 5,
+      "ok": 5,
+      "uptime_pct": 100.0,
+      "shed_hits": 0,
+      "p50_ms": 1259.2,
+      "p99_ms": 5400.7,
+      "last_status": 200,
+      "last_error": null,
+      "last_ok": true,
+      "last_ts": "2026-09-19T15:09:53Z"
+    },
+    "huggingface": {
+      "samples": 5,
+      "ok": 5,
+      "uptime_pct": 100.0,
+      "shed_hits": 0,
+      "p50_ms": 1359.9,
+      "p99_ms": 26380.2,
+      "last_status": 200,
+      "last_error": null,
+      "last_ok": true,
+      "last_ts": "2026-09-19T15:09:55Z"
+    }
+  }
+}

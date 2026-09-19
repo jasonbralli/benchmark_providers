@@ -1,0 +1,27 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual envs
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# IDEs
+.vscode/
+.idea/
+
+# Pytest
+.pytest_cache/
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+Desktop.ini
