@@ -31,8 +31,9 @@
       "url": "https://api.novita.ai/v3/openai/chat/completions",
       "model": "zai-org/glm-5.3-flash",
       "key_env": "NOVITA_API_KEY",
-      "disabled": true,
-      "note": "API key valida (lista modelos OK, sem balance p/ completions: 403 NOT_ENOUGH_BALANCE). Ativar quando houver credito. Requer User-Agent custom no client (Cloudflare 1010 bloqueia UA padrao urllib)."
+      "api_style": "novita",
+      "disabled": false,
+      "note": "Sem balance p/ completions (403 NOT_ENOUGH_BALANCE). api_style=novita seta User-Agent custom (Cloudflare 1010 bloqueia urllib default). Probe roda, mas com $0 retorna 403 — card vai mostrar 'bad' ate ter credito."
     }
   },
   "probe": {

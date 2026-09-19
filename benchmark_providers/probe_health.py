@@ -69,6 +69,9 @@ def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int
         "Content-Type": "application/json",
         "User-Agent": "benchmark-geral-probe/1.0",
     }
+    # Cloudflare 1010 bloqueia UA urllib padrao — adicionar UA custom se cfg tiver
+    if api_style == "novita":
+        headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
     if api_key:
         if api_style == "gemini":
             headers["x-goog-api-key"] = api_key
