@@ -183,12 +183,24 @@ _JS = """
 """
 
 
+def _sort_key(item) -> tuple:
+    """Ordena do melhor p/ o pior: status (ok>warn>bad) → uptime desc → P50 asc."""
+    name, p = item
+    cls, _ = _status_label(p)
+    rank = {"ok": 0, "warn": 1, "bad": 2}[cls]
+    up = p.get("uptime_pct")
+    up = up if isinstance(up, (int, float)) else -1.0
+    p50 = p.get("p50_ms")
+    p50 = p50 if isinstance(p50, (int, float)) else float("inf")
+    return (rank, -up, p50)
+
+
 def render_html(payload: dict) -> str:
     provs = payload.get("providers", {}) or {}
     cards = []
-    for name in sorted(provs.keys()):
+    for name, pdata in sorted(provs.items(), key=_sort_key):
         hist = _history(name, hours=24)
-        cards.append(_card(name, provs[name], hist))
+        cards.append(_card(name, pdata, hist))
     body_cards = "\n".join(cards) or "<p class='subtle'>Sem dados.</p>"
     gen = payload.get("generated_at", "—")
     win = payload.get("window_hours", 24)
