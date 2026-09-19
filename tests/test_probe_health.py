@@ -16,13 +16,14 @@ from benchmark_providers.probe_health import (
 )
 
 
-def _sample(provider="x", ok=True, lat=100, status=200, shed=False, ts="2026-09-18T12:00:00Z"):
+def _sample(provider="x", ok=True, lat=100, status=200, shed=False, ts="2026-09-18T12:00:00Z", ttft=None):
     return {
         "ts": ts,
         "provider": provider,
         "model_probe": "m",
         "ok": ok,
         "latency_ms": lat,
+        "ttft_ms": ttft,
         "http_status": status,
         "shed_detected": shed,
         "error": None if ok else "err",
@@ -40,7 +41,29 @@ def test_aggregate_computes_percentiles():
     assert a["samples"] == 5
     assert a["uptime_pct"] == 100.0
     assert a["p50_ms"] == 300
+    assert a["p95_ms"] == 500
     assert a["p99_ms"] == 500
+
+
+def test_aggregate_ttft():
+    rows = [_sample(lat=200, ttft=t) for t in (50, 80, 100, 150)]
+    rows.append(_sample(lat=200, ttft=None))  # amostra sem TTFT (ex: erro)
+    agg = aggregate(rows)
+    a = agg["x"]
+    assert a["ttft_samples"] == 4
+    assert a["ttft_p50_ms"] in (80, 100)  # idx arredondado
+    assert a["ttft_p95_ms"] == 150
+
+
+def test_aggregate_ttft_absent_in_old_probes():
+    rows = [_sample(lat=100) for _ in range(3)]
+    for r in rows:
+        r.pop("ttft_ms")  # probes antigas nao tem o campo
+    agg = aggregate(rows)
+    a = agg["x"]
+    assert a["ttft_samples"] == 0
+    assert a["ttft_p50_ms"] is None
+    assert a["ttft_p95_ms"] is None
 
 
 def test_aggregate_uptime():
@@ -61,6 +84,38 @@ def test_detect_alert_recovers():
     assert detect_alert(rows, consecutive=3, latency_ms=5000) == []
 
 
+def test_probe_once_ok():
+    class FakeResp:
+        def getcode(self): return 200
+        headers = {}
+        def read(self, n):
+            # primeira chamada devolve chunk SSE; depois EOF
+            if not hasattr(self, "_sent"):
+                self._sent = True
+                return b'data: {"choices":[{"delta":{"content":"h"}}]}\n\n'
+            return b""
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+    with mock.patch("urllib.request.urlopen", return_value=FakeResp()):
+        s = probe_once("https://x", "m", "k", 1, 5)
+    assert s["ok"] is True
+    assert s["shed_detected"] is False
+    assert s["ttft_ms"] is not None and s["ttft_ms"] >= 0
+
+
+def test_probe_once_ttft_none_when_no_sse():
+    class FakeResp:
+        def getcode(self): return 200
+        headers = {}
+        def read(self, n): return b""  # sem conteudo
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+    with mock.patch("urllib.request.urlopen", return_value=FakeResp()):
+        s = probe_once("https://x", "m", "k", 1, 5)
+    assert s["ok"] is True
+    assert s["ttft_ms"] is None
+
+
 def test_probe_once_shed_on_503():
     class FakeResp:
         def getcode(self): return 503
@@ -73,19 +128,6 @@ def test_probe_once_shed_on_503():
     assert s["http_status"] == 503
     assert s["shed_detected"] is True
     assert s["ok"] is False
-
-
-def test_probe_once_ok():
-    class FakeResp:
-        def getcode(self): return 200
-        headers = {}
-        def read(self, n): return b'{"choices":[{"message":{"content":"hi"}}]}'
-        def __enter__(self): return self
-        def __exit__(self, *a): return False
-    with mock.patch("urllib.request.urlopen", return_value=FakeResp()):
-        s = probe_once("https://x", "m", "k", 1, 5)
-    assert s["ok"] is True
-    assert s["shed_detected"] is False
 
 
 def test_jsonl_roundtrip(tmp_path: Path):

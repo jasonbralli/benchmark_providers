@@ -44,10 +44,14 @@ def _read_env_key(name: str) -> str:
 
 
 def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int, api_style: str = "openai") -> dict:
-    """Uma tentativa. Retorna amostra para jsonl."""
+    """Uma tentativa. Retorna amostra para jsonl.
+
+    TTFT (time-to-first-token): mede tempo ate o primeiro chunk quando
+    stream=true funcionar. Em falha de parse/streaming, ttft_ms=None.
+    """
     ts = _now_iso()
+    use_stream = api_style != "gemini"  # Gemini: manter simples por ora
     if api_style == "gemini":
-        # Gemini API usa formato diferente: contents + generationConfig
         body = json.dumps({
             "contents": [{"parts": [{"text": "ping"}]}],
             "generationConfig": {"maxOutputTokens": max_tokens, "temperature": 0}
@@ -58,7 +62,7 @@ def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int
             "messages": [{"role": "user", "content": "ping"}],
             "max_tokens": max_tokens,
             "temperature": 0,
-            "stream": False,
+            "stream": use_stream,
         }).encode("utf-8")
 
     headers = {
@@ -73,6 +77,7 @@ def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int
 
     req = urllib.request.Request(url, data=body, headers=headers, method="POST")
     t0 = time.perf_counter()
+    ttft_ms: float | None = None
     status = 0
     err = ""
     shed = False
@@ -82,8 +87,25 @@ def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             status = resp.getcode()
             retry_after = resp.headers.get("Retry-After")
-            raw = resp.read(2048)
-            body_snippet = raw.decode("utf-8", errors="ignore")
+            if use_stream and 200 <= status < 300:
+                # Le ate o primeiro chunk SSE com conteudo (data: ...\n\n)
+                buf = b""
+                try:
+                    while len(buf) < 8192:
+                        chunk = resp.read(256)
+                        if not chunk:
+                            break
+                        buf += chunk
+                        if ttft_ms is None and b"data:" in buf:
+                            ttft_ms = round((time.perf_counter() - t0) * 1000, 1)
+                        if b"\n\n" in buf or b"[DONE]" in buf:
+                            break
+                except Exception:
+                    pass
+                body_snippet = buf.decode("utf-8", errors="ignore")[:2048]
+            else:
+                raw = resp.read(2048)
+                body_snippet = raw.decode("utf-8", errors="ignore")
     except urllib.error.HTTPError as e:
         status = e.code
         retry_after = e.headers.get("Retry-After") if e.headers else None
@@ -105,6 +127,7 @@ def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int
         "model_probe": model,
         "ok": ok,
         "latency_ms": dt_ms,
+        "ttft_ms": ttft_ms,
         "http_status": status,
         "shed_detected": shed,
         "retry_after": retry_after,
@@ -145,15 +168,18 @@ def aggregate(records: list[dict]) -> dict:
     out = {}
     for prov, rows in by.items():
         lats = sorted(r["latency_ms"] for r in rows)
+        ttfts = sorted(r["ttft_ms"] for r in rows if r.get("ttft_ms") is not None)
         n = len(lats)
         ok_n = sum(1 for r in rows if r["ok"])
         shed_n = sum(1 for r in rows if r.get("shed_detected"))
 
-        def pct(p: float) -> float | None:
-            if not lats:
+        def pct(p: float, arr=None) -> float | None:
+            arr = arr if arr is not None else lats
+            if not arr:
                 return None
-            idx = max(0, min(n - 1, int(round(p * (n - 1)))))
-            return lats[idx]
+            m = len(arr)
+            idx = max(0, min(m - 1, int(round(p * (m - 1)))))
+            return arr[idx]
 
         out[prov] = {
             "samples": n,
@@ -161,7 +187,11 @@ def aggregate(records: list[dict]) -> dict:
             "uptime_pct": round(100.0 * ok_n / n, 2) if n else None,
             "shed_hits": shed_n,
             "p50_ms": pct(0.50),
+            "p95_ms": pct(0.95),
             "p99_ms": pct(0.99),
+            "ttft_p50_ms": pct(0.50, ttfts),
+            "ttft_p95_ms": pct(0.95, ttfts),
+            "ttft_samples": len(ttfts),
             "last_status": rows[-1].get("http_status"),
             "last_error": rows[-1].get("error"),
             "last_ok": rows[-1]["ok"],

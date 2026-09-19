@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="300">
+<title>benchmark_providers — health</title>
+<style>
+:root { --fg:#e5e7eb; --muted:#9ca3af; --accent:#3b82f6; --border:#374151; --card:#111827; }
+* { box-sizing: border-box; }
+body { font: 14px/1.5 ui-sans-serif, system-ui, sans-serif; background: transparent; color: var(--fg); margin: 0; padding: 16px; }
+h1 { font-size: 18px; margin: 0 0 4px; }
+.sub { color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+table { border-collapse: collapse; width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: #0b1220; color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+tr:last-child td { border-bottom: none; }
+code { background: rgba(59,130,246,.15); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+footer.site-footer { margin-top: 16px; color: var(--muted); font-size: 12px; }
+footer.site-footer a { color: var(--muted); }
+</style></head>
+<body>
+<h1>🩺 benchmark_providers — saúde dos providers</h1>
+<div class="sub">Gerado em 2026-09-19T15:09:55Z · janela 24h · auto-refresh 5min</div>
+<table>
+<thead><tr>
+<th>Provider</th><th>Uptime</th><th>Amostras</th>
+<th>P50 (ms)</th><th>P95 (ms)</th><th>P99 (ms)</th>
+<th>TTFT P50</th><th>TTFT P95</th>
+<th>Shed</th><th>Últ. status</th>
+</tr></thead>
+<tbody>
+<tr><td>🟢 <b>gemini</b></td><td>100.0%</td><td>5</td><td>1259.2</td><td>—</td><td>5400.7</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
+<tr><td>🟢 <b>huggingface</b></td><td>100.0%</td><td>5</td><td>1359.9</td><td>—</td><td>26380.2</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
+<tr><td>🔴 <b>kilocode</b></td><td>0.0%</td><td>5</td><td>807.5</td><td>—</td><td>1194.7</td><td>—</td><td>—</td><td>5</td><td><code>429</code> HTTP 429</td></tr>
+<tr><td>🟢 <b>nvidia</b></td><td>100.0%</td><td>5</td><td>95160.1</td><td>—</td><td>100488.5</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
+<tr><td>🟢 <b>openrouter</b></td><td>100.0%</td><td>5</td><td>1036.6</td><td>—</td><td>4128.5</td><td>—</td><td>—</td><td>0</td><td><code>200</code> </td></tr>
+</tbody>
+</table>
+<footer class="site-footer"><a href="https://inovatudo.com" target="_blank" rel="noopener">inovatudo.com</a></footer>
+</body></html>
