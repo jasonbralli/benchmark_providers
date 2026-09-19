@@ -17,7 +17,60 @@ from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from .probe_health import read_jsonl, aggregate, _now_iso, run as probe_run
+from .probe_health import read_jsonl, aggregate, _now_iso, run as probe_run, _read_env_key
+
+NOVITA_MODELS_URL = "https://api.novita.ai/v3/openai/models"
+CF_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+
+
+def fetch_novita_meta() -> dict:
+    """Coleta metadados do provider Novita (catalogo; nao usa completions).
+
+    Retorna {} silenciosamente em falha — dashboard deve tolerar ausencia.
+    """
+    import urllib.request, urllib.error
+    key = _read_env_key("NOVITA_API_KEY")
+    if not key:
+        return {}
+    req = urllib.request.Request(NOVITA_MODELS_URL, headers={
+        "Authorization": f"Bearer {key}",
+        "User-Agent": CF_UA,
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            payload = json.loads(r.read().decode("utf-8", "ignore"))
+    except urllib.error.HTTPError as e:
+        return {"error": f"HTTP {e.code}"}
+    except Exception as e:
+        return {"error": f"{type(e).__name__}"}
+    models = payload.get("data", []) or []
+    priced = []
+    for m in models:
+        p_in = (m.get("pricing", {}) or {}).get("prompt", {}).get("price_per_m_decimal")
+        p_out = (m.get("pricing", {}) or {}).get("completion", {}).get("price_per_m_decimal")
+        try:
+            p_in = float(p_in) if p_in is not None else None
+            p_out = float(p_out) if p_out is not None else None
+        except (TypeError, ValueError):
+            p_in = p_out = None
+        priced.append({
+            "id": m.get("id", ""),
+            "ctx": m.get("context_size"),
+            "p_in": p_in, "p_out": p_out,
+            "model_type": m.get("model_type"),
+            "status": m.get("status"),
+        })
+    # top-3 mais baratos (prompt price), excluindo None
+    priced_ok = [m for m in priced if m["p_in"] is not None]
+    top3 = sorted(priced_ok, key=lambda m: m["p_in"])[:3]
+    max_ctx = max((m["ctx"] or 0) for m in priced) if priced else 0
+    return {
+        "fetched_at": _now_iso(),
+        "model_count": len(models),
+        "max_ctx": max_ctx,
+        "top3_cheap": top3,
+        "chat_enabled": False,  # sem balance — apenas catalogo
+    }
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -150,6 +203,13 @@ h1{font-size:22px;margin:0;letter-spacing:-.01em;}
 .kpi .k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
 .kpi .v{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;}
 .na{color:var(--muted);font-weight:400;}
+.tag{font-size:10px;color:var(--muted);background:rgba(59,130,246,.15);padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle;font-weight:500;}
+.card.catalog{border-top-color:var(--accent);}
+.pill.info{background:rgba(59,130,246,.15);color:var(--accent);}
+table.mini{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px;}
+table.mini th,table.mini td{padding:4px 6px;text-align:left;border-bottom:1px solid var(--card-border);}
+table.mini th{color:var(--muted);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.04em;}
+table.mini code{background:rgba(59,130,246,.1);padding:1px 5px;border-radius:4px;font-size:10px;}
 .spark{padding:6px 0 2px;}
 .spark svg{width:100%;height:46px;display:block;}
 .card footer{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted);border-top:1px dashed var(--card-border);padding-top:8px;margin-top:6px;}
@@ -183,6 +243,42 @@ _JS = """
 """
 
 
+def _novita_card(meta: dict) -> str:
+    """Card especial 'catalogo' do provedor Novita (sem probes, sem status ok/bad)."""
+    if not meta:
+        return ""
+    if meta.get("error"):
+        err = _html.escape(meta["error"])
+        return f"""
+<article class="card catalog">
+  <header><h3>📚 novita <span class="tag">catálogo</span></h3><span class="pill warn">Meta falhou</span></header>
+  <div class="kpis"><div class="kpi"><span class="k">Erro</span><span class="v">{err}</span></div></div>
+  <footer><span class="muted">metadados indisponíveis</span></footer>
+</article>"""
+    rows = "".join(
+        f"<tr><td><code>{_html.escape(m['id'])}</code></td>"
+        f"<td>{m['p_in']:.3f}</td><td>{m['p_out']:.3f}</td>"
+        f"<td>{(m['ctx'] or 0):,}</td></tr>"
+        for m in meta.get("top3_cheap", [])
+    )
+    table = (
+        "<table class='mini'><thead><tr><th>modelo</th><th>$/M in</th><th>$/M out</th><th>ctx</th></tr></thead>"
+        f"<tbody>{rows}</tbody></table>" if rows else ""
+    )
+    return f"""
+<article class="card catalog">
+  <header><h3>📚 novita <span class="tag">catálogo</span></h3><span class="pill info">Meta apenas</span></header>
+  <div class="kpis">
+    <div class="kpi"><span class="k">Modelos</span><span class="v">{meta.get('model_count', 0)}</span></div>
+    <div class="kpi"><span class="k">Ctx máx</span><span class="v">{meta.get('max_ctx', 0):,}</span></div>
+    <div class="kpi"><span class="k">Chat</span><span class="v"><span class="na">desab.</span></span></div>
+    <div class="kpi"><span class="k">Atualizado</span><span class="v" style="font-size:11px">{_html.escape(meta.get('fetched_at','—'))}</span></div>
+  </div>
+  {table}
+  <footer><span class="muted">sem balance p/ completions — apenas catálogo (lista/preços)</span></footer>
+</article>"""
+
+
 def _sort_key(item) -> tuple:
     """Ordena do melhor p/ o pior: status (ok>warn>bad) → uptime desc → P50 asc."""
     name, p = item
@@ -195,12 +291,14 @@ def _sort_key(item) -> tuple:
     return (rank, -up, p50)
 
 
-def render_html(payload: dict) -> str:
+def render_html(payload: dict, novita_meta: dict | None = None) -> str:
     provs = payload.get("providers", {}) or {}
     cards = []
     for name, pdata in sorted(provs.items(), key=_sort_key):
         hist = _history(name, hours=24)
         cards.append(_card(name, pdata, hist))
+    if novita_meta:
+        cards.append(_novita_card(novita_meta))
     body_cards = "\n".join(cards) or "<p class='subtle'>Sem dados.</p>"
     gen = payload.get("generated_at", "—")
     win = payload.get("window_hours", 24)
@@ -235,7 +333,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):  # noqa: N802
         if self.path in ("/", "/index.html"):
-            body = render_html(_load()).encode("utf-8")
+            body = render_html(_load(), novita_meta=fetch_novita_meta()).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Cache-Control", "no-store")
@@ -271,7 +369,7 @@ def run_bot(interval_s: int = 3600, alert: bool = True):
             print(f"probe erro: {exc}")
         # Regenera HTML (raiz do repo p/ GitHub Pages)
         out = ROOT / "index.html"
-        out.write_text(render_html(_load()), encoding="utf-8")
+        out.write_text(render_html(_load(), novita_meta=fetch_novita_meta()), encoding="utf-8")
         print(f"[{_now_iso()}] bot: html atualizado -> {out}")
         time.sleep(interval_s)
 
@@ -292,7 +390,7 @@ def main(argv=None):
         return 0
     if a.once:
         out = Path(a.out) if a.out else (ROOT / "index.html")
-        out.write_text(render_html(_load()), encoding="utf-8")
+        out.write_text(render_html(_load(), novita_meta=fetch_novita_meta()), encoding="utf-8")
         print(str(out))
         return 0
     srv = ThreadingHTTPServer((a.host, a.port), Handler)
