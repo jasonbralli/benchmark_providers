@@ -1,58 +1,58 @@
 {
-  "generated_at": "2026-09-20T00:27:24Z",
+  "generated_at": "2026-09-20T00:58:47Z",
   "window_hours": 24,
   "providers": {
     "nvidia": {
-      "samples": 7,
-      "ok": 7,
+      "samples": 8,
+      "ok": 8,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 106642.5,
+      "p50_ms": 114137.2,
       "p95_ms": 116387.5,
       "p99_ms": 116387.5,
       "ttft_p50_ms": 114134.9,
       "ttft_p95_ms": 116385.4,
-      "ttft_samples": 5,
+      "ttft_samples": 6,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-20T00:25:23Z"
+      "last_ts": "2026-09-20T00:56:38Z"
     },
     "openrouter": {
-      "samples": 7,
-      "ok": 7,
+      "samples": 8,
+      "ok": 8,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 793.8,
-      "p95_ms": 1036.6,
-      "p99_ms": 1036.6,
+      "p50_ms": 918.6,
+      "p95_ms": 1126.8,
+      "p99_ms": 1126.8,
       "ttft_p50_ms": 785.4,
-      "ttft_p95_ms": 986.2,
-      "ttft_samples": 5,
+      "ttft_p95_ms": 1108.3,
+      "ttft_samples": 6,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-20T00:27:09Z"
+      "last_ts": "2026-09-20T00:58:34Z"
     },
     "kilocode": {
-      "samples": 7,
-      "ok": 1,
-      "uptime_pct": 14.29,
+      "samples": 8,
+      "ok": 2,
+      "uptime_pct": 25.0,
       "shed_hits": 6,
-      "p50_ms": 486.5,
+      "p50_ms": 767.7,
       "p95_ms": 1503.9,
       "p99_ms": 1503.9,
-      "ttft_p50_ms": 1241.6,
+      "ttft_p50_ms": 766.4,
       "ttft_p95_ms": 1241.6,
-      "ttft_samples": 1,
+      "ttft_samples": 2,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-20T00:27:10Z"
+      "last_ts": "2026-09-20T00:58:35Z"
     },
     "gemini": {
-      "samples": 7,
-      "ok": 7,
+      "samples": 8,
+      "ok": 8,
       "uptime_pct": 100.0,
       "shed_hits": 0,
       "p50_ms": 1787.5,
@@ -64,26 +64,26 @@
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-20T00:27:11Z"
+      "last_ts": "2026-09-20T00:58:36Z"
     },
     "huggingface": {
-      "samples": 7,
-      "ok": 7,
+      "samples": 8,
+      "ok": 8,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 603.4,
+      "p50_ms": 610.6,
       "p95_ms": 2196.6,
       "p99_ms": 2196.6,
       "ttft_p50_ms": 602.1,
       "ttft_p95_ms": 2195.3,
-      "ttft_samples": 5,
+      "ttft_samples": 6,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-09-20T00:27:13Z"
+      "last_ts": "2026-09-20T00:58:37Z"
     },
     "novita": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
@@ -96,7 +96,7 @@
       "last_status": 403,
       "last_error": "HTTP 403",
       "last_ok": false,
-      "last_ts": "2026-09-20T00:27:19Z"
+      "last_ts": "2026-09-20T00:58:43Z"
     }
   }
 }

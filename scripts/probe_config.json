@@ -24,7 +24,7 @@
     },
     "huggingface": {
       "url": "https://router.huggingface.co/v1/chat/completions",
-      "model": "prism-ml/Ternary-Bonsai-27B-AWQ-4bit",
+      "model": "inclusionAI/Ling-3.0-flash-Fin",
       "key_env": "HF_TOKEN",
       "note": "Modelo sponsored via Together ($0/$0, ctx 256k, ttft~331ms). Atualizar quando free_scanner encontrar opcao melhor: python -m benchmark_providers.free_scanner"
     },
