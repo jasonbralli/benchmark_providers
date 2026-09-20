@@ -1,0 +1,450 @@
+{
+  "source": "https://router.huggingface.co/v1/models",
+  "providers": {
+    "novita": {
+      "free": [],
+      "sponsored": [
+        {
+          "model": "inclusionAI/Ling-3.0-flash-VL",
+          "provider": "novita",
+          "ctx": 262144,
+          "in_usd_per_m": 0.0,
+          "out_usd_per_m": 0.0,
+          "ttft_ms": 721.6,
+          "throughput": 127.21456012547397
+        },
+        {
+          "model": "inclusionAI/Ling-3.0-flash-Fin",
+          "provider": "novita",
+          "ctx": 262144,
+          "in_usd_per_m": 0.0,
+          "out_usd_per_m": 0.0,
+          "ttft_ms": 722,
+          "throughput": 282.06182503174
+        }
+      ],
+      "cheap": [
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "provider": "novita",
+          "ctx": 16384,
+          "in_usd_per_m": 0.02,
+          "out_usd_per_m": 0.05,
+          "ttft_ms": 561.4,
+          "throughput": 171.40462117583488
+        },
+        {
+          "model": "zai-org/AutoGLM-Phone-9B-Multilingual",
+          "provider": "novita",
+          "ctx": 65536,
+          "in_usd_per_m": 0.035,
+          "out_usd_per_m": 0.138,
+          "ttft_ms": 834.6,
+          "throughput": 103.74801838761122
+        },
+        {
+          "model": "openai/gpt-oss-20b",
+          "provider": "novita",
+          "ctx": 131072,
+          "in_usd_per_m": 0.04,
+          "out_usd_per_m": 0.15,
+          "ttft_ms": 417,
+          "throughput": 65.67064333186617
+        },
+        {
+          "model": "openai/gpt-oss-120b",
+          "provider": "novita",
+          "ctx": 131072,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.25,
+          "ttft_ms": 609.6,
+          "throughput": 163.3295451960658
+        },
+        {
+          "model": "Sao10K/L3-8B-Stheno-v3.2",
+          "provider": "novita",
+          "ctx": 8192,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.05,
+          "ttft_ms": 598,
+          "throughput": 101.89606021218866
+        },
+        {
+          "model": "Sao10K/L3-8B-Lunaris-v1",
+          "provider": "novita",
+          "ctx": 8192,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.05,
+          "ttft_ms": 395.6,
+          "throughput": 87.79250699289558
+        },
+        {
+          "model": "inclusionAI/Ling-3.0-flash",
+          "provider": "novita",
+          "ctx": 262144,
+          "in_usd_per_m": 0.06,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 879.4,
+          "throughput": 233.8071804483374
+        },
+        {
+          "model": "zai-org/GLM-4.7-Flash",
+          "provider": "novita",
+          "ctx": 200000,
+          "in_usd_per_m": 0.07,
+          "out_usd_per_m": 0.4,
+          "ttft_ms": 881,
+          "throughput": 63.30969736566014
+        },
+        {
+          "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+          "provider": "novita",
+          "ctx": 131072,
+          "in_usd_per_m": 0.09,
+          "out_usd_per_m": 0.58,
+          "ttft_ms": 658,
+          "throughput": 55.62510710445427
+        }
+      ]
+    },
+    "nscale": {
+      "free": [],
+      "sponsored": [],
+      "cheap": [
+        {
+          "model": "Qwen/Qwen3-4B-Instruct-2507",
+          "provider": "nscale",
+          "ctx": 262144,
+          "in_usd_per_m": 0.01,
+          "out_usd_per_m": 0.03,
+          "ttft_ms": 698.8,
+          "throughput": 84.07090975986273
+        },
+        {
+          "model": "Qwen/Qwen3-4B-Thinking-2507",
+          "provider": "nscale",
+          "ctx": 262144,
+          "in_usd_per_m": 0.01,
+          "out_usd_per_m": 0.03,
+          "ttft_ms": 583,
+          "throughput": 87.81592517360323
+        },
+        {
+          "model": "Qwen/Qwen2.5-Coder-7B-Instruct",
+          "provider": "nscale",
+          "ctx": 131072,
+          "in_usd_per_m": 0.01,
+          "out_usd_per_m": 0.03,
+          "ttft_ms": 622.8,
+          "throughput": 77.73965098159346
+        },
+        {
+          "model": "Qwen/Qwen2.5-Coder-3B-Instruct",
+          "provider": "nscale",
+          "ctx": 32768,
+          "in_usd_per_m": 0.01,
+          "out_usd_per_m": 0.03,
+          "ttft_ms": 684.4,
+          "throughput": 74.28862819112123
+        },
+        {
+          "model": "openai/gpt-oss-20b",
+          "provider": "nscale",
+          "ctx": 131072,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.2,
+          "ttft_ms": 650.8,
+          "throughput": 87.89318246034554
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+          "provider": "nscale",
+          "ctx": 131072,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.05,
+          "ttft_ms": 753.2,
+          "throughput": 83.53527079324145
+        },
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "provider": "nscale",
+          "ctx": 131072,
+          "in_usd_per_m": 0.06,
+          "out_usd_per_m": 0.06,
+          "ttft_ms": 561.2,
+          "throughput": 75.72597181054249
+        },
+        {
+          "model": "Qwen/Qwen2.5-Coder-32B-Instruct",
+          "provider": "nscale",
+          "ctx": 131072,
+          "in_usd_per_m": 0.06,
+          "out_usd_per_m": 0.2,
+          "ttft_ms": 713.8,
+          "throughput": 38.56451047751057
+        },
+        {
+          "model": "Qwen/Qwen3-8B",
+          "provider": "nscale",
+          "ctx": 40960,
+          "in_usd_per_m": 0.07,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 622.8,
+          "throughput": 76.72427434455551
+        },
+        {
+          "model": "Qwen/Qwen3-14B",
+          "provider": "nscale",
+          "ctx": 40960,
+          "in_usd_per_m": 0.07,
+          "out_usd_per_m": 0.2,
+          "ttft_ms": 595,
+          "throughput": 63.80302749117094
+        },
+        {
+          "model": "Qwen/Qwen3-32B",
+          "provider": "nscale",
+          "ctx": 40960,
+          "in_usd_per_m": 0.08,
+          "out_usd_per_m": 0.25,
+          "ttft_ms": 691,
+          "throughput": 38.01981159028545
+        },
+        {
+          "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+          "provider": "nscale",
+          "ctx": 890000,
+          "in_usd_per_m": 0.09,
+          "out_usd_per_m": 0.29,
+          "ttft_ms": 638.6,
+          "throughput": 43.655718303865136
+        }
+      ]
+    },
+    "deepinfra": {
+      "free": [],
+      "sponsored": [],
+      "cheap": [
+        {
+          "model": "meta-llama/Llama-3.1-8B-Instruct",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.02,
+          "out_usd_per_m": 0.05,
+          "ttft_ms": 538.4,
+          "throughput": 17.89766601539736
+        },
+        {
+          "model": "openai/gpt-oss-20b",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.030000000000000002,
+          "out_usd_per_m": 0.14,
+          "ttft_ms": 510.4,
+          "throughput": 117.00951879087143
+        },
+        {
+          "model": "ibm-granite/granite-4.2-3b",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.030000000000000002,
+          "out_usd_per_m": 0.12000000000000001,
+          "ttft_ms": 236.6,
+          "throughput": 233.95015679445493
+        },
+        {
+          "model": "openai/gpt-oss-120b",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.037,
+          "out_usd_per_m": 0.16999999999999998,
+          "ttft_ms": 399.8,
+          "throughput": 33.65848110955128
+        },
+        {
+          "model": "google/gemma-3-12b-it",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.15,
+          "ttft_ms": 233.8,
+          "throughput": 68.84598064046875
+        },
+        {
+          "model": "google/gemma-3-4b-it",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.1,
+          "ttft_ms": 422,
+          "throughput": 64.81982805044602
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+          "provider": "deepinfra",
+          "ctx": 1048576,
+          "in_usd_per_m": 0.060000000000000005,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 603,
+          "throughput": 25.907832259023944
+        },
+        {
+          "model": "inclusionAI/Ling-3.0-flash-Fin",
+          "provider": "deepinfra",
+          "ctx": 262144,
+          "in_usd_per_m": 0.060000000000000005,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 493.2,
+          "throughput": 93.17316989496527
+        },
+        {
+          "model": "zai-org/GLM-4.7-Flash",
+          "provider": "deepinfra",
+          "ctx": 202752,
+          "in_usd_per_m": 0.060000000000000005,
+          "out_usd_per_m": 0.4,
+          "ttft_ms": 593.5,
+          "throughput": 19.730163829943532
+        },
+        {
+          "model": "inclusionAI/Ling-3.0-flash-VL",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.060000000000000005,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 476.4,
+          "throughput": 52.96009500333971
+        },
+        {
+          "model": "inclusionAI/Ling-3.0-flash",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.060000000000000005,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 2007.8,
+          "throughput": 34.14003223240392
+        },
+        {
+          "model": "ibm-granite/granite-4.2-8b",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.060000000000000005,
+          "out_usd_per_m": 0.25,
+          "ttft_ms": 318.2,
+          "throughput": 62.561244912157335
+        },
+        {
+          "model": "google/gemma-4-26B-A4B-it",
+          "provider": "deepinfra",
+          "ctx": 262144,
+          "in_usd_per_m": 0.07,
+          "out_usd_per_m": 0.33999999999999997,
+          "ttft_ms": 712.6,
+          "throughput": 26.830501433011033
+        },
+        {
+          "model": "microsoft/phi-4",
+          "provider": "deepinfra",
+          "ctx": 16384,
+          "in_usd_per_m": 0.07,
+          "out_usd_per_m": 0.14,
+          "ttft_ms": 265,
+          "throughput": 75.52529364027686
+        },
+        {
+          "model": "google/gemma-3-27b-it",
+          "provider": "deepinfra",
+          "ctx": 131072,
+          "in_usd_per_m": 0.08,
+          "out_usd_per_m": 0.16,
+          "ttft_ms": 352.4,
+          "throughput": 24.566226725753825
+        },
+        {
+          "model": "Qwen/Qwen3-32B",
+          "provider": "deepinfra",
+          "ctx": 40960,
+          "in_usd_per_m": 0.08,
+          "out_usd_per_m": 0.28,
+          "ttft_ms": 458.6,
+          "throughput": 37.571759182479504
+        },
+        {
+          "model": "deepseek-ai/DeepSeek-V4-Flash",
+          "provider": "deepinfra",
+          "ctx": 1048576,
+          "in_usd_per_m": 0.09,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 2561.4,
+          "throughput": 23.953770501827712
+        },
+        {
+          "model": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+          "provider": "deepinfra",
+          "ctx": 262144,
+          "in_usd_per_m": 0.09,
+          "out_usd_per_m": 0.55,
+          "ttft_ms": 479,
+          "throughput": 30.92562805712571
+        },
+        {
+          "model": "Qwen/Qwen3-Next-80B-A3B-Instruct",
+          "provider": "deepinfra",
+          "ctx": 262144,
+          "in_usd_per_m": 0.09,
+          "out_usd_per_m": 1.1,
+          "ttft_ms": 570.2,
+          "throughput": 141.92397978724594
+        }
+      ]
+    },
+    "together": {
+      "free": [],
+      "sponsored": [
+        {
+          "model": "prism-ml/Ternary-Bonsai-27B-gguf",
+          "provider": "together",
+          "ctx": 262144,
+          "in_usd_per_m": 0.0,
+          "out_usd_per_m": 0.0,
+          "ttft_ms": 331.4,
+          "throughput": 93.27593555169415
+        },
+        {
+          "model": "prism-ml/Ternary-Bonsai-27B-AWQ-4bit",
+          "provider": "together",
+          "ctx": 262144,
+          "in_usd_per_m": 0.0,
+          "out_usd_per_m": 0.0,
+          "ttft_ms": 295.6,
+          "throughput": 92.74448400506667
+        }
+      ],
+      "cheap": []
+    },
+    "ovhcloud": {
+      "free": [],
+      "sponsored": [],
+      "cheap": [
+        {
+          "model": "openai/gpt-oss-20b",
+          "provider": "ovhcloud",
+          "ctx": 131072,
+          "in_usd_per_m": 0.05,
+          "out_usd_per_m": 0.18,
+          "ttft_ms": 276.8,
+          "throughput": 77.81525706914223
+        },
+        {
+          "model": "openai/gpt-oss-120b",
+          "provider": "ovhcloud",
+          "ctx": 131072,
+          "in_usd_per_m": 0.09,
+          "out_usd_per_m": 0.47,
+          "ttft_ms": 274.6,
+          "throughput": 133.42182526851292
+        }
+      ]
+    }
+  }
+}
