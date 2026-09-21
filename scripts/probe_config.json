@@ -24,9 +24,27 @@
     },
     "huggingface": {
       "url": "https://router.huggingface.co/v1/chat/completions",
-      "model": "inclusionAI/Ling-3.0-flash-Fin",
+      "model": "prism-ml/Ternary-Bonsai-27B-AWQ-4bit",
       "key_env": "HF_TOKEN",
-      "note": "Modelo sponsored via Together ($0/$0, ctx 256k, ttft~331ms). Atualizar quando free_scanner encontrar opcao melhor: python -m benchmark_providers.free_scanner"
+      "note": "Modelo sponsored via Novita ($0/$0, ctx 256k, ttft~722ms). Rotacao semanal com Ternary-Bonsai via auto_update_probe_model."
+    },
+    "groq": {
+      "url": "https://api.groq.com/openai/v1/chat/completions",
+      "model": "llama-3.1-8b-instant",
+      "key_env": "GROQ_API_KEY",
+      "note": "Free tier real: sem cartao, rate limit ~30 RPM. Modelos: llama-3.1-8b-instant, llama-3.3-70b-versatile."
+    },
+    "cerebras": {
+      "url": "https://api.cerebras.ai/v1/chat/completions",
+      "model": "llama-3.1-8b",
+      "key_env": "CEREBRAS_API_KEY",
+      "note": "Free tier real: 1M tokens/dia, sem cartao. Modelos: llama-3.1-8b, llama-3.1-70b."
+    },
+    "mistral": {
+      "url": "https://api.mistral.ai/v1/chat/completions",
+      "model": "mistral-small-latest",
+      "key_env": "MISTRAL_API_KEY",
+      "note": "Free tier: 1 req/seg, sem cartao (phone required). Modelos: mistral-small-latest, mistral-medium-latest."
     },
     "novita": {
       "url": "https://api.novita.ai/v3/openai/chat/completions",
