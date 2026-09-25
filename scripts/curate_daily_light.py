@@ -30,6 +30,11 @@ from benchmark_providers.probe_health import (  # noqa: E402
     run as probe_run,
     send_telegram,
 )
+from benchmark_providers.dashboard import (  # noqa: E402
+    _load,
+    fetch_novita_meta,
+    render_html,
+)
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger("curate_daily_light")
@@ -65,8 +70,21 @@ def main() -> int:
         send_telegram(f"⚠️ benchmark_providers probe falhou: {e}")
         return 2
 
-    # 2. Commit + push
-    logger.info("Passo 2: commit/push...")
+    # 2. Regenerar index.html (dashboard) com os dados frescos do probe
+    logger.info("Passo 2: regenerar index.html...")
+    try:
+        html_path = ROOT / "index.html"
+        html_path.write_text(
+            render_html(_load(), novita_meta=fetch_novita_meta()),
+            encoding="utf-8",
+        )
+        logger.info("index.html atualizado -> %s", html_path)
+    except Exception as e:
+        logger.exception("Falha ao regenerar index.html")
+        send_telegram(f"⚠️ benchmark_providers: falha ao regenerar index.html: {e}")
+
+    # 3. Commit + push
+    logger.info("Passo 3: commit/push...")
     status = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT,
                             capture_output=True, text=True)
     dirty = [l for l in status.stdout.splitlines() if l.strip()]
