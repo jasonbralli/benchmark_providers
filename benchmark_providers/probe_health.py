@@ -293,7 +293,10 @@ def run(config_path: Path, jsonl_path: Path, aggregate_path: Path, alert: bool =
         consecutive=int(alert_cfg.get("consecutive_threshold", 3)),
         latency_ms=float(alert_cfg.get("latency_threshold_ms", 5000)),
     )
+    # alerts:false no config = provider esperado-falha (ex: comparativo sem assinatura) —
+    # aparece vermelho no dashboard mas NUNCA dispara Telegram.
     if alerts and alert:
+        alerts = [p for p in alerts if not cfg.get("providers", {}).get(p, {}).get("alerts") is False]
         msg = (
             "⚠️ <b>benchmark_providers health</b>\n"
             + "\n".join(f"• {p}: {agg[p]['samples']} amostras 24h, uptime {agg[p]['uptime_pct']}%, P50 {agg[p]['p50_ms']}ms" for p in alerts)

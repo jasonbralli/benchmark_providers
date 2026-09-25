@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T16:19:43Z",
+  "generated_at": "2026-09-25T17:48:52Z",
   "window_hours": 24,
   "providers": {
     "nvidia": {
@@ -145,6 +145,38 @@
       "last_error": "HTTP 403",
       "last_ok": false,
       "last_ts": "2026-09-25T16:19:39Z"
+    },
+    "openai": {
+      "samples": 1,
+      "ok": 0,
+      "uptime_pct": 0.0,
+      "shed_hits": 0,
+      "p50_ms": 188.6,
+      "p95_ms": 188.6,
+      "p99_ms": 188.6,
+      "ttft_p50_ms": null,
+      "ttft_p95_ms": null,
+      "ttft_samples": 0,
+      "last_status": 401,
+      "last_error": "HTTP 401",
+      "last_ok": false,
+      "last_ts": "2026-09-25T17:48:38Z"
+    },
+    "anthropic": {
+      "samples": 1,
+      "ok": 0,
+      "uptime_pct": 0.0,
+      "shed_hits": 0,
+      "p50_ms": 218.2,
+      "p95_ms": 218.2,
+      "p99_ms": 218.2,
+      "ttft_p50_ms": null,
+      "ttft_p95_ms": null,
+      "ttft_samples": 0,
+      "last_status": 401,
+      "last_error": "HTTP 401",
+      "last_ok": false,
+      "last_ts": "2026-09-25T17:48:48Z"
     }
   }
 }
