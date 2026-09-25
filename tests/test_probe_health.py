@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -16,7 +17,15 @@ from benchmark_providers.probe_health import (
 )
 
 
-def _sample(provider="x", ok=True, lat=100, status=200, shed=False, ts="2026-09-18T12:00:00Z", ttft=None):
+def _now_ts() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _sample(provider="x", ok=True, lat=100, status=200, shed=False, ts=None, ttft=None):
+    # ts dinâmico por default: read_jsonl filtra por janela de 24h real,
+    # então ts hardcoded (2026-09-18) expirava 24h após o teste ser escrito.
+    if ts is None:
+        ts = _now_ts()
     return {
         "ts": ts,
         "provider": provider,
