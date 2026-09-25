@@ -130,6 +130,33 @@ def test_probe_once_shed_on_503():
     assert s["ok"] is False
 
 
+def test_probe_once_anthropic_headers():
+    """api_style=anthropic: auth via x-api-key + anthropic-version (nao Bearer)."""
+    captured = {}
+
+    class FakeResp:
+        def getcode(self): return 200
+        headers = {}
+        def read(self, n): return b""
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def fake_urlopen(req, timeout=None):
+        captured["headers"] = {k.lower(): v for k, v in req.headers.items()}
+        captured["body"] = json.loads(req.data.decode("utf-8"))
+        return FakeResp()
+
+    with mock.patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        s = probe_once("https://x", "m", "k", 1, 5, api_style="anthropic")
+    assert captured["headers"].get("x-api-key") == "k"
+    assert captured["headers"].get("anthropic-version") == "2023-06-01"
+    assert "authorization" not in captured["headers"]
+    # body /v1/messages e stream SSE ja sao compat com o formato OpenAI do probe
+    assert captured["body"]["messages"] == [{"role": "user", "content": "ping"}]
+    assert captured["body"]["stream"] is True
+    assert s["ok"] is True
+
+
 def test_jsonl_roundtrip(tmp_path: Path):
     p = tmp_path / "h.jsonl"
     append_jsonl(p, _sample())

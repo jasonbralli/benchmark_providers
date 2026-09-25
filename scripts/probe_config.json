@@ -11,6 +11,21 @@
       "model": "meta-llama/llama-3.1-8b-instruct",
       "key_env": "OPENROUTER_API_KEY"
     },
+    "openai": {
+      "url": "https://api.openai.com/v1/chat/completions",
+      "model": "gpt-4o-mini",
+      "key_env": "OPENAI_API_KEY",
+      "disabled": true,
+      "note": "Comparativo (plano pago). disabled=true: OPENAI_API_KEY ausente no .env do Hermes. Habilitar (remover disabled) quando a key existir."
+    },
+    "anthropic": {
+      "url": "https://api.anthropic.com/v1/messages",
+      "model": "claude-haiku-4-5",
+      "key_env": "ANTHROPIC_API_KEY",
+      "api_style": "anthropic",
+      "disabled": true,
+      "note": "Comparativo (plano pago). Auth via x-api-key + anthropic-version (api_style=anthropic em probe_health.py; body/stream ja compat). disabled=true: ANTHROPIC_API_KEY ausente no .env do Hermes. Habilitar quando a key existir."
+    },
     "kilocode": {
       "url": "https://api.kilocode.ai/api/openrouter/chat/completions",
       "model": "thinkingmachines/inkling-small:free",

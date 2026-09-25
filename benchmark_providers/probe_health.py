@@ -75,6 +75,9 @@ def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int
     if api_key:
         if api_style == "gemini":
             headers["x-goog-api-key"] = api_key
+        elif api_style == "anthropic":
+            headers["x-api-key"] = api_key
+            headers["anthropic-version"] = "2023-06-01"
         else:
             headers["Authorization"] = f"Bearer {api_key}"
 
