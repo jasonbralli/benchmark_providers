@@ -67,7 +67,7 @@ def probe_once(url: str, model: str, api_key: str, max_tokens: int, timeout: int
 
     headers = {
         "Content-Type": "application/json",
-        "User-Agent": "benchmark-geral-probe/1.0",
+        "User-Agent": "benchmark-providers-probe/1.0",
     }
     # Cloudflare 1010 bloqueia UA urllib padrao — adicionar UA custom se cfg tiver
     if api_style == "novita":

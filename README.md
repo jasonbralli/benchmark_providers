@@ -70,13 +70,18 @@ pytest tests/ -v
 
 ## Versionamento
 
-Repositório GitHub privado: `jasonbralli/benchmark_providers`.
+Repositório GitHub **público**: `jasonbralli/benchmark_providers` (GitHub Pages
+branch `main`, root `/` — dashboard em `index.html`; push = deploy automático).
 
 ## Relação com benchmark_geral
 
+Dependência é **unidirecional**: `benchmark_geral` consome este projeto; este
+projeto **NÃO importa nada** de `benchmark_geral` (autônomo).
+
 - **Este projeto** escreve `provider_health.json` e `provider_health.jsonl`.
-- **`benchmark_geral`** consome via path absoluto configurável em
-  `benchmark_pipe/build.py` (`HEALTH_FILE`) ou via subprocess de `probe_health`.
-- `curate_daily.py` **full** vive em `benchmark_geral` e chama este probe via subprocess.
+- **`benchmark_geral`** consome via env var `PROVIDERS_DATA_DIR`
+  (`benchmark_pipe/build.py`) e `PROVIDERS_HOME` (`scripts/curate_daily.py`).
+- `curate_daily.py` **full** vive em `benchmark_geral` e importa `probe_health`
+  deste projeto via `PROVIDERS_HOME` (sys.path dinâmico).
 - `curate_daily_light.py` (aqui) é a versão enxuta para agendamento independente —
-  faz probe + commit + push, sem pipeline de consolidação.
+  faz probe + render_html + commit + push, sem pipeline de consolidação.
