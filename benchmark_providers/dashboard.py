@@ -237,15 +237,11 @@ _JS = """
 
 
 def _sort_key(item) -> tuple:
-    """Ordena do melhor p/ o pior: status (ok>warn>bad) → uptime desc → P50 asc."""
+    """Ordena pelo P50 (menor = melhor); segregação saudável/falha removida."""
     name, p = item
-    cls, _ = _status_label(p)
-    rank = {"ok": 0, "warn": 1, "bad": 2}[cls]
-    up = p.get("uptime_pct")
-    up = up if isinstance(up, (int, float)) else -1.0
     p50 = p.get("p50_ms")
     p50 = p50 if isinstance(p50, (int, float)) else float("inf")
-    return (rank, -up, p50)
+    return (p50,)
 
 
 def render_html(payload: dict, novita_meta: dict | None = None) -> str:
