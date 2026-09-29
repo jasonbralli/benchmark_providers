@@ -104,7 +104,9 @@ def main() -> int:
 
     logger.info("=== Resultado: %d alerta(s) ===", len(alerts))
     if alerts:
-        send_telegram("🤖 benchmark_providers/curate_daily_light\n" + "\n".join(alerts))
+        # Telegram consolidado é enviado APENAS pelo curate_daily.py (benchmark_geral).
+        # Aqui apenas printamos pra que o cron Hermes (exit != 0) entregue log,
+        # mas a mensagem user-facing já é gerada pelo orquestrador (script do cron).
         print("\n".join(alerts))
         return 1
     return 0
