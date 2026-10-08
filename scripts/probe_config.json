@@ -45,15 +45,15 @@
     },
     "groq": {
       "url": "https://api.groq.com/openai/v1/chat/completions",
-      "model": "llama-3.1-8b-instant",
+      "model": "openai/gpt-oss-120b",
       "key_env": "GROQ_API_KEY",
-      "note": "Free tier real: sem cartao, rate limit ~30 RPM. Modelos: llama-3.1-8b-instant, llama-3.3-70b-versatile."
+      "note": "Free tier real: sem cartao, rate limit ~30 RPM. llama-3.1-8b-instant/3.3-70b REMOVIDOS do catalogo Groq (out/2026, 404) -> trocado p/ openai/gpt-oss-120b (200 OK ttft~764ms validado 08/10). Alternativas: qwen/qwen3.8-27b."
     },
     "cerebras": {
       "url": "https://api.cerebras.ai/v1/chat/completions",
-      "model": "llama-3.1-8b",
+      "model": "gpt-oss-120b",
       "key_env": "CEREBRAS_API_KEY",
-      "note": "Free tier real: 1M tokens/dia, sem cartao. Modelos: llama-3.1-8b, llama-3.1-70b."
+      "note": "Free tier real: 1M tokens/dia, sem cartao. llama-3.1-8b REMOVIDO do catalogo (out/2026, 404). MAS conta Cerebras atual exige billing (402 payment_required em QUALQUER model — mesmo gpt-oss-120b) = como Novita. Card vermelho ate ter credito."
     },
     "mistral": {
       "url": "https://api.mistral.ai/v1/chat/completions",

@@ -85,6 +85,7 @@ def main() -> int:
 
     # 3. Commit + push
     logger.info("Passo 3: commit/push...")
+    ops_alerts: list[str] = []  # falhas reais de ops (push/commit) — exit 1
     status = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT,
                             capture_output=True, text=True)
     dirty = [l for l in status.stdout.splitlines() if l.strip()]
@@ -95,21 +96,21 @@ def main() -> int:
         if rc == 0:
             rc, _, err = _run(["git", "push", "origin", "main"])
             if rc != 0:
-                alerts.append(f"⚠️ push falhou: {err[-200:]}")
+                ops_alerts.append(f"⚠️ push falhou: {err[-200:]}")
         else:
             if "nothing to commit" not in err.lower():
-                alerts.append(f"⚠️ commit falhou: {err[-200:]}")
+                ops_alerts.append(f"⚠️ commit falhou: {err[-200:]}")
     else:
         logger.info("Nada a commitar.")
 
-    logger.info("=== Resultado: %d alerta(s) ===", len(alerts))
-    if alerts:
-        # Telegram consolidado é enviado APENAS pelo curate_daily.py (benchmark_geral).
-        # Aqui apenas printamos pra que o cron Hermes (exit != 0) entregue log,
-        # mas a mensagem user-facing já é gerada pelo orquestrador (script do cron).
-        print("\n".join(alerts))
-        return 1
-    return 0
+    # 06/10/2026: alerts do probe (🏥 providers) são INFORMATIVOS — o próprio
+    # probe_run(alert=True) já envia via send_telegram; exit 1 aqui marcava o
+    # cron como "failed" mesmo sem bug de ops (ruído — mesmo padrão do fix do
+    # curate_daily.py full de 02/10). Apenas falha de push/commit = exit 1.
+    all_alerts = list(alerts) + ops_alerts
+    if all_alerts:
+        print("\n".join(all_alerts))
+    return 1 if ops_alerts else 0
 
 
 if __name__ == "__main__":
