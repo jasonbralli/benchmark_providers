@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T23:43:08Z",
+  "generated_at": "2026-10-12T12:37:41Z",
   "window_hours": 24,
   "providers": {
     "nvidia": {
@@ -7,32 +7,32 @@
       "ok": 5,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 2026.4,
-      "p95_ms": 47085.1,
-      "p99_ms": 47085.1,
-      "ttft_p50_ms": 2025.9,
-      "ttft_p95_ms": 47084.0,
+      "p50_ms": 1169.1,
+      "p95_ms": 2026.4,
+      "p99_ms": 2026.4,
+      "ttft_p50_ms": 1167.7,
+      "ttft_p95_ms": 2025.9,
       "ttft_samples": 5,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-10-11T23:41:45Z"
+      "last_ts": "2026-10-12T12:36:06Z"
     },
     "openrouter": {
       "samples": 5,
       "ok": 5,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 1025.1,
-      "p95_ms": 1521.3,
-      "p99_ms": 1521.3,
-      "ttft_p50_ms": 1005.9,
-      "ttft_p95_ms": 1485.3,
+      "p50_ms": 983.3,
+      "p95_ms": 1943.1,
+      "p99_ms": 1943.1,
+      "ttft_p50_ms": 983.0,
+      "ttft_p95_ms": 1942.9,
       "ttft_samples": 5,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-10-11T23:41:46Z"
+      "last_ts": "2026-10-12T12:36:07Z"
     },
     "openai": {
       "samples": 5,
@@ -48,7 +48,7 @@
       "last_status": 401,
       "last_error": "HTTP 401",
       "last_ok": false,
-      "last_ts": "2026-10-11T23:41:53Z"
+      "last_ts": "2026-10-12T12:36:13Z"
     },
     "anthropic": {
       "samples": 5,
@@ -56,15 +56,15 @@
       "uptime_pct": 0.0,
       "shed_hits": 0,
       "p50_ms": 558.4,
-      "p95_ms": 707.2,
-      "p99_ms": 707.2,
+      "p95_ms": 630.1,
+      "p99_ms": 630.1,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 401,
       "last_error": "HTTP 401",
       "last_ok": false,
-      "last_ts": "2026-10-11T23:42:03Z"
+      "last_ts": "2026-10-12T12:36:24Z"
     },
     "kilocode": {
       "samples": 5,
@@ -80,7 +80,7 @@
       "last_status": 429,
       "last_error": "HTTP 429",
       "last_ok": false,
-      "last_ts": "2026-10-11T23:42:15Z"
+      "last_ts": "2026-10-12T12:36:36Z"
     },
     "gemini": {
       "samples": 5,
@@ -88,63 +88,63 @@
       "uptime_pct": 100.0,
       "shed_hits": 0,
       "p50_ms": 1203.9,
-      "p95_ms": 1456.2,
-      "p99_ms": 1456.2,
+      "p95_ms": 1335.8,
+      "p99_ms": 1335.8,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-10-11T23:42:20Z"
+      "last_ts": "2026-10-12T12:36:41Z"
     },
     "huggingface": {
       "samples": 5,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 811.2,
-      "p95_ms": 817.6,
-      "p99_ms": 817.6,
+      "p50_ms": 795.4,
+      "p95_ms": 812.0,
+      "p99_ms": 812.0,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 402,
       "last_error": "HTTP 402",
       "last_ok": false,
-      "last_ts": "2026-10-11T23:42:28Z"
+      "last_ts": "2026-10-12T12:36:48Z"
     },
     "groq": {
       "samples": 5,
-      "ok": 5,
-      "uptime_pct": 100.0,
+      "ok": 3,
+      "uptime_pct": 60.0,
       "shed_hits": 0,
-      "p50_ms": 802.7,
+      "p50_ms": 590.8,
       "p95_ms": 968.7,
       "p99_ms": 968.7,
       "ttft_p50_ms": 801.5,
       "ttft_p95_ms": 955.5,
-      "ttft_samples": 5,
-      "last_status": 200,
-      "last_error": null,
-      "last_ok": true,
-      "last_ts": "2026-10-11T23:42:33Z"
+      "ttft_samples": 3,
+      "last_status": 403,
+      "last_error": "HTTP 403",
+      "last_ok": false,
+      "last_ts": "2026-10-12T12:36:58Z"
     },
     "cerebras": {
       "samples": 5,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 613.3,
-      "p95_ms": 698.0,
-      "p99_ms": 698.0,
+      "p50_ms": 577.0,
+      "p95_ms": 690.2,
+      "p99_ms": 690.2,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 402,
       "last_error": "HTTP 402",
       "last_ok": false,
-      "last_ts": "2026-10-11T23:42:39Z"
+      "last_ts": "2026-10-12T12:37:09Z"
     },
     "mistral": {
       "samples": 5,
@@ -160,23 +160,23 @@
       "last_status": 401,
       "last_error": "HTTP 401",
       "last_ok": false,
-      "last_ts": "2026-10-11T23:42:50Z"
+      "last_ts": "2026-10-12T12:37:20Z"
     },
     "novita": {
       "samples": 5,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 1199.7,
-      "p95_ms": 1228.5,
-      "p99_ms": 1228.5,
+      "p50_ms": 1072.0,
+      "p95_ms": 1199.7,
+      "p99_ms": 1199.7,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 403,
       "last_error": "HTTP 403",
       "last_ok": false,
-      "last_ts": "2026-10-11T23:43:02Z"
+      "last_ts": "2026-10-12T12:37:35Z"
     }
   }
 }
