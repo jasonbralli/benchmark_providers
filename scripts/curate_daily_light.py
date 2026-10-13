@@ -6,7 +6,9 @@ Versão LIGHT do curate_daily.py — apenas health probe + commit/push.
 Diferença vs benchmark_geral/scripts/curate_daily.py:
 - NÃO roda pipeline de consolidação (extract/normalize/enrich/build)
 - NÃO valida quedas de contagem de modelos
-- APENAS: probe → grava JSON/JSONL → git add/commit/push → alerta Telegram
+- APENAS: probe → grava JSON/JSONL → render index.html → commit/push
+- NÃO alerta saúde (13/10/2026): o curate_daily.py full reporta consolidado
+  no mesmo stdout do cron; aqui só falhas de commit/push aparecem (exit 1)
 
 Uso:
     python scripts/curate_daily_light.py
@@ -62,9 +64,9 @@ def main() -> int:
             config_path=PROBE_CONFIG,
             jsonl_path=PROVIDER_HEALTH_JSONL,
             aggregate_path=PROVIDER_HEALTH_JSON,
-            alert=True,
+            alert=False,  # 13/10: alert=True enviava Telegram próprio e a
+                           # lista reimpressa duplicava a 🏥 do curate_daily full
         )
-        alerts = res.get("alerts", [])
     except Exception as e:
         logger.exception("Probe falhou")
         send_telegram(f"⚠️ benchmark_providers probe falhou: {e}")
@@ -103,13 +105,13 @@ def main() -> int:
     else:
         logger.info("Nada a commitar.")
 
-    # 06/10/2026: alerts do probe (🏥 providers) são INFORMATIVOS — o próprio
-    # probe_run(alert=True) já envia via send_telegram; exit 1 aqui marcava o
-    # cron como "failed" mesmo sem bug de ops (ruído — mesmo padrão do fix do
-    # curate_daily.py full de 02/10). Apenas falha de push/commit = exit 1.
-    all_alerts = list(alerts) + ops_alerts
-    if all_alerts:
-        print("\n".join(all_alerts))
+    # 06/10/2026: alerts do probe são INFORMATIVOS — exit 1 aqui marcava o
+    # cron como "failed" mesmo sem bug de ops (ruído). Apenas push/commit = 1.
+    # 13/10/2026: alerts do probe NÃO são mais impressos — o curate_daily.py
+    # full (mesmo cron, passo 1) já reporta saúde consolidada no stdout;
+    # reimprimir aqui duplicava providers na mensagem do cron (kilocode 2x).
+    if ops_alerts:
+        print("\n".join(ops_alerts))
     return 1 if ops_alerts else 0
 
 
