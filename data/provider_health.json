@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-16T12:49:06Z",
+  "generated_at": "2026-10-17T10:33:46Z",
   "window_hours": 24,
   "providers": {
     "nvidia": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 826.5,
+      "p50_ms": 820.7,
       "p95_ms": 839.2,
       "p99_ms": 839.2,
       "ttft_p50_ms": null,
@@ -16,30 +16,30 @@
       "last_status": 410,
       "last_error": "HTTP 410",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:47:37Z"
+      "last_ts": "2026-10-17T10:32:19Z"
     },
     "openrouter": {
-      "samples": 3,
-      "ok": 3,
+      "samples": 4,
+      "ok": 4,
       "uptime_pct": 100.0,
       "shed_hits": 0,
       "p50_ms": 1075.5,
-      "p95_ms": 1136.2,
-      "p99_ms": 1136.2,
+      "p95_ms": 1080.4,
+      "p99_ms": 1080.4,
       "ttft_p50_ms": 1075.3,
-      "ttft_p95_ms": 1136.0,
-      "ttft_samples": 3,
+      "ttft_p95_ms": 1080.2,
+      "ttft_samples": 4,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-10-16T12:47:42Z"
+      "last_ts": "2026-10-17T10:32:24Z"
     },
     "openai": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 687.9,
+      "p50_ms": 665.4,
       "p95_ms": 709.0,
       "p99_ms": 709.0,
       "ttft_p50_ms": null,
@@ -48,14 +48,14 @@
       "last_status": 401,
       "last_error": "HTTP 401",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:47:49Z"
+      "last_ts": "2026-10-17T10:32:31Z"
     },
     "anthropic": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 573.2,
+      "p50_ms": 613.4,
       "p95_ms": 711.7,
       "p99_ms": 711.7,
       "ttft_p50_ms": null,
@@ -64,14 +64,14 @@
       "last_status": 401,
       "last_error": "HTTP 401",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:48:00Z"
+      "last_ts": "2026-10-17T10:32:42Z"
     },
     "kilocode": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
-      "shed_hits": 3,
-      "p50_ms": 1014.2,
+      "shed_hits": 4,
+      "p50_ms": 1033.4,
       "p95_ms": 1088.1,
       "p99_ms": 1088.1,
       "ttft_p50_ms": null,
@@ -80,26 +80,26 @@
       "last_status": 429,
       "last_error": "HTTP 429",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:48:12Z"
+      "last_ts": "2026-10-17T10:32:53Z"
     },
     "gemini": {
-      "samples": 3,
-      "ok": 3,
+      "samples": 4,
+      "ok": 4,
       "uptime_pct": 100.0,
       "shed_hits": 0,
       "p50_ms": 1223.1,
-      "p95_ms": 1373.3,
-      "p99_ms": 1373.3,
+      "p95_ms": 1450.6,
+      "p99_ms": 1450.6,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-10-16T12:48:18Z"
+      "last_ts": "2026-10-17T10:32:59Z"
     },
     "huggingface": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
@@ -112,42 +112,42 @@
       "last_status": 402,
       "last_error": "HTTP 402",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:48:25Z"
+      "last_ts": "2026-10-17T10:33:06Z"
     },
     "groq": {
-      "samples": 3,
-      "ok": 3,
+      "samples": 4,
+      "ok": 4,
       "uptime_pct": 100.0,
       "shed_hits": 0,
-      "p50_ms": 867.5,
+      "p50_ms": 858.1,
       "p95_ms": 920.2,
       "p99_ms": 920.2,
-      "ttft_p50_ms": 865.3,
+      "ttft_p50_ms": 857.9,
       "ttft_p95_ms": 917.7,
-      "ttft_samples": 3,
+      "ttft_samples": 4,
       "last_status": 200,
       "last_error": null,
       "last_ok": true,
-      "last_ts": "2026-10-16T12:48:30Z"
+      "last_ts": "2026-10-17T10:33:11Z"
     },
     "cerebras": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 685.6,
-      "p95_ms": 694.1,
-      "p99_ms": 694.1,
+      "p50_ms": 602.4,
+      "p95_ms": 685.6,
+      "p99_ms": 685.6,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 402,
       "last_error": "HTTP 402",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:48:37Z"
+      "last_ts": "2026-10-17T10:33:18Z"
     },
     "mistral": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
@@ -160,23 +160,23 @@
       "last_status": 401,
       "last_error": "HTTP 401",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:48:48Z"
+      "last_ts": "2026-10-17T10:33:28Z"
     },
     "novita": {
-      "samples": 3,
+      "samples": 4,
       "ok": 0,
       "uptime_pct": 0.0,
       "shed_hits": 0,
-      "p50_ms": 1179.4,
-      "p95_ms": 1182.9,
-      "p99_ms": 1182.9,
+      "p50_ms": 1235.3,
+      "p95_ms": 1236.3,
+      "p99_ms": 1236.3,
       "ttft_p50_ms": null,
       "ttft_p95_ms": null,
       "ttft_samples": 0,
       "last_status": 403,
       "last_error": "HTTP 403",
       "last_ok": false,
-      "last_ts": "2026-10-16T12:49:00Z"
+      "last_ts": "2026-10-17T10:33:41Z"
     }
   }
 }
