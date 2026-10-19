@@ -2,9 +2,13 @@
   "providers": {
     "nvidia": {
       "url": "https://integrate.api.nvidia.com/v1/chat/completions",
-      "model": "moonshotai/kimi-k3",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "key_env": "NVIDIA_API_KEY",
-      "note": "Free-tier NVIDIA expoe so reasoning models (kimi-k3, glm-5.3-flash). mistral/llama/gemma retornam 410 Gone (deprecated) ou 404 Not Found (not provisioned). kimi-k3 responde 200 em ~60-90s."
+      "fallback_models": [
+        "nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "z-ai/glm-5.3-flash"
+      ],
+      "note": "Free-tier NVIDIA expoe so reasoning models. mistral/llama/gemma retornam 410 Gone (deprecated) ou 404 (not provisioned). kimi-k3 deprecado (410 Gone out/2026) -> regra mitigate_410 troca automaticamente pelo proximo de fallback_models: nemotron-3.5-super-vl-120b-a12b (200 OK ~860ms, validado 19/10), depois glm-5.3-flash (lento, TTFT ~60-100s). · 410 mitigado 19/10/2026: moonshotai/kimi-k3 -> nvidia/nemotron-3.5-super-vl-120b-a12b"
     },
     "openrouter": {
       "url": "https://openrouter.ai/api/v1/chat/completions",
@@ -47,7 +51,11 @@
       "url": "https://api.groq.com/openai/v1/chat/completions",
       "model": "openai/gpt-oss-120b",
       "key_env": "GROQ_API_KEY",
-      "note": "Free tier real: sem cartao, rate limit ~30 RPM. llama-3.1-8b-instant/3.3-70b REMOVIDOS do catalogo Groq (out/2026, 404) -> trocado p/ openai/gpt-oss-120b (200 OK ttft~764ms validado 08/10). Alternativas: qwen/qwen3.8-27b."
+      "fallback_models": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3.8-27b"
+      ],
+      "note": "Free tier real: sem cartao, rate limit ~30 RPM. llama-3.1-8b-instant/3.3-70b REMOVIDOS do catalogo Groq (out/2026, 404) -> trocado p/ openai/gpt-oss-120b (200 OK ttft~764ms validado 08/10). fallback_models p/ regra mitigate_410: qwen/qwen3.8-27b (200 OK ~850ms, validado 19/10)."
     },
     "cerebras": {
       "url": "https://api.cerebras.ai/v1/chat/completions",

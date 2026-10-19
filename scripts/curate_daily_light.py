@@ -72,6 +72,20 @@ def main() -> int:
         send_telegram(f"⚠️ benchmark_providers probe falhou: {e}")
         return 2
 
+    # 1.5 Mitigação de HTTP 410 (modelo deprecated): troca o model pelo próximo
+    # do fallback_models e re-probeia só os trocados — reverte o vermelho no dia.
+    try:
+        from benchmark_providers.mitigate_410 import mitigate, reprobe_swapped
+        swaps = mitigate(PROBE_CONFIG, res["aggregate"])
+        if swaps:
+            for name, old, new in swaps:
+                logger.info("Passo 1.5: 410 mitigado %s: %s -> %s", name, old, new)
+            reprobe_swapped(PROBE_CONFIG, PROVIDER_HEALTH_JSONL, PROVIDER_HEALTH_JSON, swaps)
+            logger.info("Passo 1.5: re-probe concluído, agregado atualizado")
+    except Exception as e:
+        logger.exception("Mitigação 410 falhou")
+        send_telegram(f"⚠️ benchmark_providers: mitigação 410 falhou: {e}")
+
     # 2. Regenerar index.html (dashboard) com os dados frescos do probe
     logger.info("Passo 2: regenerar index.html...")
     try:
@@ -93,7 +107,7 @@ def main() -> int:
     dirty = [l for l in status.stdout.splitlines() if l.strip()]
     if dirty:
         ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
-        _run(["git", "add", "data/provider_health.json", "data/provider_health.jsonl", "index.html"])
+        _run(["git", "add", "data/provider_health.json", "data/provider_health.jsonl", "index.html", "scripts/probe_config.json"])
         rc, _, err = _run(["git", "commit", "-m", f"health probe {ts}"])
         if rc == 0:
             rc, _, err = _run(["git", "push", "origin", "main"])

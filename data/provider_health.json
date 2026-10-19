@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-10-19T10:34:02Z",
+  "generated_at": "2026-10-19T15:59:00Z",
   "window_hours": 24,
   "providers": {
     "nvidia": {
-      "samples": 2,
-      "ok": 0,
-      "uptime_pct": 0.0,
+      "samples": 3,
+      "ok": 1,
+      "uptime_pct": 33.33,
       "shed_hits": 0,
-      "p50_ms": 704.5,
-      "p95_ms": 728.5,
-      "p99_ms": 728.5,
-      "ttft_p50_ms": null,
-      "ttft_p95_ms": null,
-      "ttft_samples": 0,
-      "last_status": 410,
-      "last_error": "HTTP 410",
-      "last_ok": false,
-      "last_ts": "2026-10-19T10:32:34Z"
+      "p50_ms": 728.5,
+      "p95_ms": 1173.4,
+      "p99_ms": 1173.4,
+      "ttft_p50_ms": 1173.1,
+      "ttft_p95_ms": 1173.1,
+      "ttft_samples": 1,
+      "last_status": 200,
+      "last_error": null,
+      "last_ok": true,
+      "last_ts": "2026-10-19T15:58:59Z"
     },
     "openrouter": {
       "samples": 2,
