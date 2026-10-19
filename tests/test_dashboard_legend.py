@@ -1,26 +1,40 @@
-"""Regresão da legenda de códigos HTTP do dashboard (v1.6, 19/10/2026).
+"""Regresão das descrições de códigos HTTP no rodapé dos cards (v1.7, 19/10/2026).
 
 Valida que:
-1. render_html embute a legenda com todos os códigos de _HTTP_LONG.
-2. O rodapé do card mostra a descrição curta ao lado do código (ex.: HTTP 401 — credencial ausente/inválida).
+1. O wording de _HTTP_SHORT é o aprovado pelo Jason.
+2. O rodapé do card mostra a descrição ao lado do código (status 200 não ganha descrição).
+3. A legenda no header foi REMOVIDA (pref: só descrição inline no card).
 """
 
-from benchmark_providers.dashboard import _HTTP_LONG, _HTTP_SHORT, _card, render_html
+from benchmark_providers.dashboard import _HTTP_SHORT, _card, render_html
+
+_EXPECTED = {
+    401: "credencial ausente ou inválida",
+    402: "conta sem créditos/saldo",
+    403: "key aceita, mas a conta não tem permissão",
+    404: "modelo inexistente, renomeado ou fora do catálogo",
+    410: "modelo descontinuado permanentemente",
+    429: "quota de requisições excedida",
+    503: "serviço sobrecarregado ou em manutenção",
+}
 
 
-def test_legenda_contem_todos_os_codigos():
-    html = render_html({})
-    assert '<details class="legend">' in html
-    for code, desc in _HTTP_LONG.items():
-        assert f"<b>HTTP {code}</b>" in html
-        assert desc in html
+def test_wording_dicionario_aprovado():
+    assert _HTTP_SHORT == _EXPECTED
 
 
-def test_rodape_card_mostra_descricao_curta():
-    p = {"last_ok": False, "last_status": 401, "last_error": "HTTP 401"}
-    html = _card("provider-x", p, [])
-    assert f"HTTP 401 — {_HTTP_SHORT[401]}" in html
-    # status desconhecido (200) não ganha descrição
+def test_rodape_card_mostra_descricao_ao_lado_do_codigo():
+    for code, desc in _EXPECTED.items():
+        p = {"last_ok": False, "last_status": code, "last_error": f"HTTP {code}"}
+        assert f"HTTP {code} — {desc}" in _card("provider-x", p, [])
+    # status de sucesso (200) não ganha descrição
     ok = {"last_ok": True, "last_status": 200, "uptime_pct": 100.0}
     html_ok = _card("provider-y", ok, [])
-    assert "HTTP 200" in html_ok and " — " not in html_ok.split("HTTP 200")[1].split("<")[0]
+    assert "HTTP 200" in html_ok
+
+
+def test_legenda_header_removida():
+    html = render_html({})
+    assert '<details class="legend">' not in html
+    assert "Códigos de erro HTTP" not in html
+    assert "inovatudo.com" in html  # assinatura do rodapé permanece
