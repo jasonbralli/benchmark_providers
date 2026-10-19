@@ -162,11 +162,11 @@ def _card(name: str, p: dict, hist: list[dict]) -> str:
     icon = {"ok": "🟢", "warn": "🟡", "bad": "🔴"}[cls]
     spark = _sparkline_svg(hist)
     last_err = _html.escape(p.get("last_error") or "")[:120]
-    last_ts = p.get("last_ts", "")
     st = p.get("last_status")
     status_txt = f"HTTP {st or '—'}"
     if st in _HTTP_SHORT:
-        status_txt += f" — {_HTTP_SHORT[st]}"
+        status_txt += f" {_HTTP_SHORT[st]}"
+    show_err = last_err and last_err != f"HTTP {st}"
     return f"""
 <article class="card {cls}">
   <header>
@@ -185,8 +185,8 @@ def _card(name: str, p: dict, hist: list[dict]) -> str:
   </div>
   <div class="spark">{spark}</div>
   <footer>
-    <span class="muted">últ. {last_ts} · {status_txt}</span>
-    {f'<span class="err">{last_err}</span>' if last_err else ''}
+    <span class="muted">{status_txt}</span>
+    {f'<span class="err">{last_err}</span>' if show_err else ''}
   </footer>
 </article>"""
 
