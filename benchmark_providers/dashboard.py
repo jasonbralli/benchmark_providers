@@ -132,6 +132,27 @@ def _fmt(v, unit=""):
     return f"{v}{unit}"
 
 
+# Significados dos códigos HTTP: curto (rodapé do card) e longo (legenda da página)
+_HTTP_SHORT = {
+    401: "credencial ausente/inválida",
+    402: "sem créditos/saldo",
+    403: "sem permissão p/ o recurso",
+    404: "modelo inexistente",
+    410: "modelo descontinuado",
+    429: "rate limit excedido",
+    503: "serviço sobrecarregado",
+}
+_HTTP_LONG = {
+    401: "Unauthorized — credencial ausente ou inválida (API key não configurada ou rejeitada)",
+    402: "Payment Required — conta sem créditos/saldo (billing pendente ou plano não contratado)",
+    403: "Forbidden — key aceita, mas a conta não tem permissão para o modelo/recurso",
+    404: "Not Found — modelo inexistente, renomeado ou fora do catálogo ativo do provider",
+    410: "Gone — modelo descontinuado permanentemente pelo provider",
+    429: "Too Many Requests — quota de requisições excedida; aguardar e retentar",
+    503: "Service Unavailable — serviço sobrecarregado ou em manutenção (load shedding)",
+}
+
+
 def _status_label(p: dict) -> tuple[str, str]:
     if not p.get("last_ok"):
         if p.get("last_status") in (429, 503) or p.get("shed_hits", 0) > 0:
@@ -151,6 +172,10 @@ def _card(name: str, p: dict, hist: list[dict]) -> str:
     spark = _sparkline_svg(hist)
     last_err = _html.escape(p.get("last_error") or "")[:120]
     last_ts = p.get("last_ts", "")
+    st = p.get("last_status")
+    status_txt = f"HTTP {st or '—'}"
+    if st in _HTTP_SHORT:
+        status_txt += f" — {_HTTP_SHORT[st]}"
     return f"""
 <article class="card {cls}">
   <header>
@@ -169,7 +194,7 @@ def _card(name: str, p: dict, hist: list[dict]) -> str:
   </div>
   <div class="spark">{spark}</div>
   <footer>
-    <span class="muted">últ. {last_ts} · HTTP {p.get('last_status') or '—'}</span>
+    <span class="muted">últ. {last_ts} · {status_txt}</span>
     {f'<span class="err">{last_err}</span>' if last_err else ''}
   </footer>
 </article>"""
@@ -210,6 +235,13 @@ h1{font-size:22px;margin:0;letter-spacing:-.01em;}
 footer.site-footer{margin:24px 0 6px;text-align:center;color:var(--muted);font-size:12px;}
 footer.site-footer a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted);}
 footer.site-footer a:hover{color:var(--fg);}
+.legend{margin:0 0 14px;font-size:12px;color:var(--muted);}
+.legend summary{cursor:pointer;user-select:none;}
+.legend summary:hover{color:var(--fg);}
+.legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px 16px;margin-top:8px;}
+.lg{display:flex;gap:8px;align-items:baseline;}
+.lg b{color:var(--bad);font-family:ui-monospace,monospace;white-space:nowrap;}
+.lg span{color:var(--muted);}
 @media(max-width:640px){.kpis{grid-template-columns:repeat(2,1fr);}h1{font-size:18px;}}
 """
 
@@ -253,6 +285,10 @@ def render_html(payload: dict, novita_meta: dict | None = None) -> str:
     body_cards = "\n".join(cards) or "<p class='subtle'>Sem dados.</p>"
     gen = payload.get("generated_at", "—")
     win = payload.get("window_hours", 24)
+    legend_items = "".join(
+        f'<div class="lg"><b>HTTP {code}</b><span>{_html.escape(desc)}</span></div>'
+        for code, desc in sorted(_HTTP_LONG.items())
+    )
     return f"""<!doctype html>
 <html lang="pt-BR"><head>
 <meta charset="utf-8">
@@ -267,6 +303,12 @@ def render_html(payload: dict, novita_meta: dict | None = None) -> str:
   <span class="subtle">Gerado em <b>{_html.escape(str(gen))}</b> · janela de {win}h</span>
   <span class="refresh">auto-refresh 2 min · decorrido <b id="elapsed">0s</b></span>
 </header>
+<details class="legend">
+  <summary>📖 Códigos de erro HTTP — o que significam</summary>
+  <div class="legend-grid">
+{legend_items}
+  </div>
+</details>
 <main class="grid">
 {body_cards}
 </main>

@@ -38,6 +38,13 @@ h1{font-size:22px;margin:0;letter-spacing:-.01em;}
 footer.site-footer{margin:24px 0 6px;text-align:center;color:var(--muted);font-size:12px;}
 footer.site-footer a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--muted);}
 footer.site-footer a:hover{color:var(--fg);}
+.legend{margin:0 0 14px;font-size:12px;color:var(--muted);}
+.legend summary{cursor:pointer;user-select:none;}
+.legend summary:hover{color:var(--fg);}
+.legend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px 16px;margin-top:8px;}
+.lg{display:flex;gap:8px;align-items:baseline;}
+.lg b{color:var(--bad);font-family:ui-monospace,monospace;white-space:nowrap;}
+.lg span{color:var(--muted);}
 @media(max-width:640px){.kpis{grid-template-columns:repeat(2,1fr);}h1{font-size:18px;}}
 </style>
 </head>
@@ -48,6 +55,12 @@ footer.site-footer a:hover{color:var(--fg);}
   <span class="subtle">Gerado em <b>2026-10-19T10:34:02Z</b> · janela de 24h</span>
   <span class="refresh">auto-refresh 2 min · decorrido <b id="elapsed">0s</b></span>
 </header>
+<details class="legend">
+  <summary>📖 Códigos de erro HTTP — o que significam</summary>
+  <div class="legend-grid">
+<div class="lg"><b>HTTP 401</b><span>Unauthorized — credencial ausente ou inválida (API key não configurada ou rejeitada)</span></div><div class="lg"><b>HTTP 402</b><span>Payment Required — conta sem créditos/saldo (billing pendente ou plano não contratado)</span></div><div class="lg"><b>HTTP 403</b><span>Forbidden — key aceita, mas a conta não tem permissão para o modelo/recurso</span></div><div class="lg"><b>HTTP 404</b><span>Not Found — modelo inexistente, renomeado ou fora do catálogo ativo do provider</span></div><div class="lg"><b>HTTP 410</b><span>Gone — modelo descontinuado permanentemente pelo provider</span></div><div class="lg"><b>HTTP 429</b><span>Too Many Requests — quota de requisições excedida; aguardar e retentar</span></div><div class="lg"><b>HTTP 503</b><span>Service Unavailable — serviço sobrecarregado ou em manutenção (load shedding)</span></div>
+  </div>
+</details>
 <main class="grid">
 
 <article class="card bad">
@@ -67,7 +80,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,42.0 218.0,4.0"/><circle cx="2.0" cy="42.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="4.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:32:57Z · HTTP 401</span>
+    <span class="muted">últ. 2026-10-19T10:32:57Z · HTTP 401 — credencial ausente/inválida</span>
     <span class="err">HTTP 401</span>
   </footer>
 </article>
@@ -89,7 +102,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,42.0 218.0,4.0"/><circle cx="2.0" cy="42.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="4.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:33:33Z · HTTP 402</span>
+    <span class="muted">últ. 2026-10-19T10:33:33Z · HTTP 402 — sem créditos/saldo</span>
     <span class="err">HTTP 402</span>
   </footer>
 </article>
@@ -111,7 +124,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,42.0 218.0,4.0"/><circle cx="2.0" cy="42.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="4.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:32:46Z · HTTP 401</span>
+    <span class="muted">últ. 2026-10-19T10:32:46Z · HTTP 401 — credencial ausente/inválida</span>
     <span class="err">HTTP 401</span>
   </footer>
 </article>
@@ -133,7 +146,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,42.0 218.0,4.0"/><circle cx="2.0" cy="42.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="4.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:33:44Z · HTTP 401</span>
+    <span class="muted">últ. 2026-10-19T10:33:44Z · HTTP 401 — credencial ausente/inválida</span>
     <span class="err">HTTP 401</span>
   </footer>
 </article>
@@ -155,7 +168,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,4.0 218.0,42.0"/><circle cx="2.0" cy="4.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="42.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:32:34Z · HTTP 410</span>
+    <span class="muted">últ. 2026-10-19T10:32:34Z · HTTP 410 — modelo descontinuado</span>
     <span class="err">HTTP 410</span>
   </footer>
 </article>
@@ -177,7 +190,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,4.0 218.0,42.0"/><circle cx="2.0" cy="4.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="42.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:33:22Z · HTTP 402</span>
+    <span class="muted">últ. 2026-10-19T10:33:22Z · HTTP 402 — sem créditos/saldo</span>
     <span class="err">HTTP 402</span>
   </footer>
 </article>
@@ -221,7 +234,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,42.0 218.0,4.0"/><circle cx="2.0" cy="42.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="4.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:33:08Z · HTTP 429</span>
+    <span class="muted">últ. 2026-10-19T10:33:08Z · HTTP 429 — rate limit excedido</span>
     <span class="err">HTTP 429</span>
   </footer>
 </article>
@@ -243,7 +256,7 @@ footer.site-footer a:hover{color:var(--fg);}
   </div>
   <div class="spark"><svg width="220" height="46" viewBox="0 0 220 46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" points="2.0,4.0 218.0,42.0"/><circle cx="2.0" cy="4.0" r="2.5" fill="#ef4444"/><circle cx="218.0" cy="42.0" r="2.5" fill="#ef4444"/></svg></div>
   <footer>
-    <span class="muted">últ. 2026-10-19T10:33:57Z · HTTP 403</span>
+    <span class="muted">últ. 2026-10-19T10:33:57Z · HTTP 403 — sem permissão p/ o recurso</span>
     <span class="err">HTTP 403</span>
   </footer>
 </article>
