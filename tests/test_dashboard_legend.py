@@ -11,6 +11,7 @@ Valida que:
 from benchmark_providers.dashboard import _HTTP_SHORT, _card, render_html
 
 _EXPECTED = {
+    400: "requisicao mal formada ou saldo/credito insuficiente",
     401: "credencial ausente ou inválida",
     402: "conta sem créditos/saldo",
     403: "key aceita, mas a conta não tem permissão",

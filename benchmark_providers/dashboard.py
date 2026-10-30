@@ -134,6 +134,7 @@ def _fmt(v, unit=""):
 
 # Breve descrição exibida ao lado do código HTTP no rodapé do card (fonte única)
 _HTTP_SHORT = {
+    400: "requisicao mal formada ou saldo/credito insuficiente",
     401: "credencial ausente ou inválida",
     402: "conta sem créditos/saldo",
     403: "key aceita, mas a conta não tem permissão",
