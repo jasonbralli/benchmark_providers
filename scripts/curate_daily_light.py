@@ -72,19 +72,20 @@ def main() -> int:
         send_telegram(f"⚠️ benchmark_providers probe falhou: {e}")
         return 2
 
-    # 1.5 Mitigação de HTTP 410 (modelo deprecated): troca o model pelo próximo
-    # do fallback_models e re-probeia só os trocados — reverte o vermelho no dia.
+    # 1.5 Mitigação de HTTP 410 (deprecated) e 404 (fora do catálogo/renomeado):
+    # troca o model pelo próximo do fallback_models e re-probeia só os trocados.
     try:
         from benchmark_providers.mitigate_410 import mitigate, reprobe_swapped
-        swaps = mitigate(PROBE_CONFIG, res["aggregate"])
-        if swaps:
-            for name, old, new in swaps:
-                logger.info("Passo 1.5: 410 mitigado %s: %s -> %s", name, old, new)
-            reprobe_swapped(PROBE_CONFIG, PROVIDER_HEALTH_JSONL, PROVIDER_HEALTH_JSON, swaps)
+        from benchmark_providers.mitigate_404 import mitigate_404
+        all_swaps = mitigate(PROBE_CONFIG, res["aggregate"]) + mitigate_404(PROBE_CONFIG, res["aggregate"])
+        if all_swaps:
+            for name, old, new in all_swaps:
+                logger.info("Passo 1.5: modelo morto mitigado %s: %s -> %s", name, old, new)
+            reprobe_swapped(PROBE_CONFIG, PROVIDER_HEALTH_JSONL, PROVIDER_HEALTH_JSON, all_swaps)
             logger.info("Passo 1.5: re-probe concluído, agregado atualizado")
     except Exception as e:
-        logger.exception("Mitigação 410 falhou")
-        send_telegram(f"⚠️ benchmark_providers: mitigação 410 falhou: {e}")
+        logger.exception("Mitigação 410/404 falhou")
+        send_telegram(f"⚠️ benchmark_providers: mitigação 410/404 falhou: {e}")
 
     # 2. Regenerar index.html (dashboard) com os dados frescos do probe
     logger.info("Passo 2: regenerar index.html...")

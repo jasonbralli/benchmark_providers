@@ -31,8 +31,14 @@
     },
     "kilocode": {
       "url": "https://api.kilocode.ai/api/openrouter/chat/completions",
-      "model": "thinkingmachines/inkling-small:free",
-      "key_env": "KILOCODE_API_KEY"
+      "model": "inclusionai/ling-3.1-flash-1019-free",
+      "key_env": "KILOCODE_API_KEY",
+      "fallback_models": [
+        "thinkingmachines/inkling-small:free",
+        "inclusionai/ling-3.1-flash-1019-free",
+        "reflection/beam-free"
+      ],
+      "note": "01/11/2026: thinkingmachines/inkling-small:free REMOVIDO do catalogo (404) — so restou a versao paga inkling-small. fallback_models p/ regra mitigate_404 (catalogo ao vivo 01/11, 17 free): inclusionai/ling-3.1-flash-1019-free, reflection/beam-free. · 404 mitigado 01/11/2026: thinkingmachines/inkling-small:free -> inclusionai/ling-3.1-flash-1019-free"
     },
     "gemini": {
       "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
