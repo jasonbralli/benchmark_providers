@@ -26,9 +26,8 @@
       "url": "https://api.anthropic.com/v1/messages",
       "model": "claude-haiku-4-5",
       "key_env": "ANTHROPIC_API_KEY",
-      "alerts": false,
       "api_style": "anthropic",
-      "note": "Comparativo SEM assinatura (plano pago). Auth via x-api-key + anthropic-version (api_style=anthropic em probe_health.py; body/stream ja compat). Probe real: sem key o endpoint responde 401 -> card vermelho 'Falha' com latencia real do erro. Ao contratar: setar ANTHROPIC_API_KEY no .env do Hermes — card vira verde automaticamente."
+      "note": "Plano pago contratado. ANTHROPIC_API_KEY setada no .env do Hermes. Probe real autenticado: OK quando responder 200; Falha se 401/403 (credencial expirada). Alerta ativo."
     },
     "kilocode": {
       "url": "https://api.kilocode.ai/api/openrouter/chat/completions",
