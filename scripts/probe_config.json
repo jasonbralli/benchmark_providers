@@ -31,14 +31,21 @@
     },
     "kilocode": {
       "url": "https://api.kilocode.ai/api/openrouter/chat/completions",
-      "model": "thinkingmachines/inkling-small:free",
+      "model": "nvidia/nemotron-3.5-super-vl:free",
       "key_env": "KILOCODE_API_KEY",
       "fallback_models": [
-        "thinkingmachines/inkling-small:free",
-        "inclusionai/ling-3.1-flash-1019-free",
-        "reflection/beam-free"
+        "nvidia/nemotron-3.5-super-vl:free",
+        "nvidia/nemotron-3.5-lightning:free",
+        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "liquid/lfm-3-1.7b:free",
+        "dots-studio/dots-3-note-preview:free",
+        "stealth/glyph-cluster",
+        "stealth/crouton-alpha",
+        "kilo-auto/free",
+        "cohere/north-mini-code:free",
+        "openrouter/free"
       ],
-      "note": "01/11/2026: thinkingmachines/inkling-small:free REMOVIDO do catalogo (404) — so restou a versao paga inkling-small. fallback_models p/ regra mitigate_404 (catalogo ao vivo 01/11, 17 free): inclusionai/ling-3.1-flash-1019-free, reflection/beam-free. · 404 mitigado 01/11/2026: thinkingmachines/inkling-small:free -> inclusionai/ling-3.1-flash-1019-free · 404 mitigado 04/11/2026: inclusionai/ling-3.1-flash-1019-free -> reflection/beam-free · 404 mitigado 09/11/2026: reflection/beam-free -> thinkingmachines/inkling-small:free"
+      "note": "10/11/2026: todos os 3 fallback_models anteriores (inkling-small:free, ling-3.1-flash-1019-free, reflection/beam-free) retornam 404 (fora do catalogo). Catastro ao vivo 10/11: 13 modelos free, 11 com 200 OK. model -> nvidia/nemotron-3.5-super-vl:free (200 OK ~860ms, validado 19/10 no NIM; aqui confirmado 200 no Kilo) + fallback_models com os demais vivos. Regra mitigate_404 troca automaticamente p/ prox. vivo se morrer. 2 modelos exigem auth (401) e estao excluidos: google/lyria-3-pro-preview, google/lyria-3-clip-preview."
     },
     "gemini": {
       "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
